@@ -75,57 +75,19 @@
             border-radius: 2px;
             animation: fall linear forwards;
         }
-
-        /* --- CORNER POP EMOJIS --- */
-        /* Entry Animation: Slide Up + Scale Pop */
-        @keyframes popUp {
-            0% { transform: translateY(100px) scale(0.5); opacity: 0; }
-            60% { transform: translateY(-20px) scale(1.2); opacity: 1; }
-            100% { transform: translateY(0) scale(1); opacity: 1; }
-        }
-        /* Idle Animation: Gentle Bobbing */
-        @keyframes gentleBob {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .corner-pop {
-            position: fixed;
-            bottom: 20px;
-            font-size: 3rem;
-            z-index: 9998;
-            pointer-events: none;
-            /* Hidden by default */
-            opacity: 0;
-            transform: translateY(100px);
-            transition: opacity 0.5s ease-out;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-        }
-
-        /* Active Class to Trigger Animation */
-        .corner-pop.active {
-            opacity: 1;
-            /* Run popUp once, then gentleBob infinitely */
-            animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, gentleBob 2s ease-in-out infinite 0.6s;
-        }
-
-        .cp-left { left: 20px; }
-        .cp-right { right: 20px; }
-
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
-
-    <div class="corner-pop cp-left" id="emoji-left">🎉✨</div>
-    <div class="corner-pop cp-right" id="emoji-right">🎈🎊</div>
-
 
     <nav id="navbar" class="fixed w-full z-50 bg-dark py-4 text-white shadow-lg transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center">
                 
                 <div class="flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo(0,0)">
-                    <img src="image_3.png" alt="Haroon's Logo" class="w-16 h-16 rounded-full border-2 border-gold object-cover transition-transform duration-300 group-hover:scale-110">
+                    <img src="logo.png" 
+                         alt="Haroon's Logo" 
+                         onerror="this.src='https://placehold.co/100x100/0f392b/C5A059?text=H'; this.onerror=null;"
+                         class="w-16 h-16 rounded-full border-2 border-gold object-cover transition-transform duration-300 group-hover:scale-110">
                     
                     <div class="flex flex-col leading-tight">
                         <span class="text-xl font-serif font-bold tracking-wide">HAROON'S</span>
@@ -436,7 +398,10 @@
                 
                 <div class="space-y-6">
                     <div class="flex items-center gap-3">
-                        <img src="image_3.png" alt="Haroon's Logo" class="w-12 h-12 rounded-full border border-gold object-cover">
+                        <img src="logo.png" 
+                             alt="Haroon's Logo" 
+                             onerror="this.src='https://placehold.co/100x100/0f392b/C5A059?text=H'; this.onerror=null;"
+                             class="w-12 h-12 rounded-full border border-gold object-cover">
                         <div>
                             <h3 class="text-2xl font-serif font-bold text-white tracking-wide">HAROON'S</h3>
                             <p class="text-[10px] text-gold uppercase tracking-[0.3em]">Weddings & Events</p>
@@ -626,48 +591,37 @@
             });
         }
 
-        // --- UPDATED GOLD SHOWER & EMOJI CONTROL ---
+        // --- UPDATED GOLD SHOWER (4 Seconds Duration) ---
         function triggerGoldShower() {
             const colors = ['#C5A059', '#FFD700', '#DAA520', '#F0E68C'];
-            const emojis = document.querySelectorAll('.corner-pop');
             
-            // 1. Show Emojis
-            emojis.forEach(el => el.classList.add('active'));
-
-            // 2. Continuous Rain Logic
-            // We run a loop that spawns particles continuously for 10 seconds.
-            const endTime = Date.now() + 10000; // 10 seconds from now
+            // Run for 4 seconds
+            const endTime = Date.now() + 4000; 
 
             const interval = setInterval(() => {
-                // Stop spawning after 10 seconds
                 if (Date.now() > endTime) {
                     clearInterval(interval);
-                    // Hide Emojis
-                    emojis.forEach(el => el.classList.remove('active'));
                     return;
                 }
 
-                // Spawn a batch of particles every tick (creates heavy rain effect)
+                // Spawn particles
                 for (let i = 0; i < 10; i++) {
                     const confetti = document.createElement('div');
                     confetti.classList.add('confetti');
                     confetti.style.left = Math.random() * 100 + 'vw';
-                    
-                    // REVERTED SPEED: Fast (2s to 4s)
-                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    
+                    // Faster fall speed (1.5s to 3s)
+                    confetti.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's'; 
                     confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                     confetti.style.width = (Math.random() * 8 + 4) + 'px';
                     confetti.style.height = confetti.style.width;
                     
                     document.body.appendChild(confetti);
                     
-                    // Cleanup individual particle after it falls
                     setTimeout(() => {
                         confetti.remove();
-                    }, 4000);
+                    }, 3000);
                 }
-            }, 100); // Run this batch generation every 100ms
+            }, 100);
         }
 
         function highlightStars(n) {
@@ -707,6 +661,13 @@
         reviewForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
+            // --- ACCIDENTAL DOUBLE-SUBMIT PREVENTION ---
+            const submitBtn = reviewForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = 'Submitting...';
+            // -------------------------------------------
+
             const formData = new FormData(reviewForm);
             const name = formData.get('name');
             const message = formData.get('message');
@@ -716,12 +677,16 @@
             if (!isValidName(name)) {
                  alert("Please enter a valid Name (e.g., First Last). No numbers or symbols allowed.");
                  document.getElementById('review-name').focus();
+                 submitBtn.disabled = false;
+                 submitBtn.innerHTML = originalBtnText;
                  return;
             }
 
             if (!isValidMessage(message)) {
                  alert("Please enter a valid review message (minimum 3 words).");
                  document.getElementById('review-message').focus();
+                 submitBtn.disabled = false;
+                 submitBtn.innerHTML = originalBtnText;
                  return;
             }
 
@@ -730,6 +695,8 @@
                 if (isSpamOrInvalidOtherEvent(typedEvent)) {
                     alert("Please enter a valid Event Name. Avoid symbols or random letters.");
                     otherInput.focus();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
                     return; 
                 }
                 eventType = typedEvent;
@@ -744,6 +711,8 @@
 
             if (isDuplicate) {
                 alert("You have already submitted this review.");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
                 return;
             }
 
@@ -762,6 +731,10 @@
             }).catch(error => {
                 console.error('Error:', error);
                 alert("Something went wrong, but we recorded your local feedback!");
+            }).finally(() => {
+                 // Re-enable button after process is complete (success or failure)
+                 submitBtn.disabled = false;
+                 submitBtn.innerHTML = originalBtnText;
             });
 
             if (currentRating >= 4) {
