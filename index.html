@@ -77,28 +77,47 @@
         }
 
         /* --- CORNER POP EMOJIS --- */
+        /* Entry Animation: Slide Up + Scale Pop */
+        @keyframes popUp {
+            0% { transform: translateY(100px) scale(0.5); opacity: 0; }
+            60% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        /* Idle Animation: Gentle Bobbing */
         @keyframes gentleBob {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-10px); }
         }
+
         .corner-pop {
             position: fixed;
             bottom: 20px;
             font-size: 3rem;
             z-index: 9998;
             pointer-events: none;
-            animation: gentleBob 3s ease-in-out infinite;
+            /* Hidden by default */
+            opacity: 0;
+            transform: translateY(100px);
+            transition: opacity 0.5s ease-out;
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
         }
-        .cp-left { left: 20px; animation-delay: 0s; }
-        .cp-right { right: 20px; animation-delay: 1.5s; }
+
+        /* Active Class to Trigger Animation */
+        .corner-pop.active {
+            opacity: 1;
+            /* Run popUp once, then gentleBob infinitely */
+            animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, gentleBob 2s ease-in-out infinite 0.6s;
+        }
+
+        .cp-left { left: 20px; }
+        .cp-right { right: 20px; }
 
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
-    <div class="corner-pop cp-left">🎉✨</div>
-    <div class="corner-pop cp-right">🍾🥂</div>
+    <div class="corner-pop cp-left" id="emoji-left">🎉✨</div>
+    <div class="corner-pop cp-right" id="emoji-right">🎈🎊</div>
 
 
     <nav id="navbar" class="fixed w-full z-50 bg-dark py-4 text-white shadow-lg transition-all duration-300">
@@ -517,7 +536,7 @@
                 text: "Haroon's made our dream wedding a reality. The stage decoration was breathtaking and exactly what we imagined!",
                 rating: 5,
                 eventType: "Wedding",
-                time: "10/28/2023 02:30 PM" // Added fake historical timestamp
+                time: "10/28/2023 02:30 PM"
             },
              {
                 name: "TechSolutions Pvt Ltd",
@@ -543,28 +562,23 @@
             }
         }
 
-        // --- UPDATED SPAM VALIDATION FUNCTIONS ---
         function isValidName(text) {
-            // Must only contain letters and spaces, and be at least 3 chars long. No numbers.
             const nameRegex = /^[a-zA-Z\s]+$/;
             return nameRegex.test(text) && text.trim().length >= 3;
         }
 
         function isValidMessage(text) {
-             // Must have vowels (prevents keyboard smash like "zzzz")
              if (!/[aeiouyAEIOUY]/.test(text)) return false;
-             // Must have at least 3 words (prevents one-word spam)
              const wordCount = text.trim().split(/\s+/).length;
              return wordCount >= 3;
         }
 
         function isSpamOrInvalidOtherEvent(text) {
-             // Existing checks for the "Other" field
             if (text.length < 3) return true;
-            if (/(.)\1{3,}/.test(text)) return true; // repeating chars
-            if (/^\d+$/.test(text)) return true; // only numbers
+            if (/(.)\1{3,}/.test(text)) return true;
+            if (/^\d+$/.test(text)) return true;
             const allowedPattern = /^[a-zA-Z0-9\s\-\']+$/;
-            if (!allowedPattern.test(text)) return true; // weird symbols
+            if (!allowedPattern.test(text)) return true;
             return false;
         }
 
@@ -592,52 +606,68 @@
             return newCard;
         }
 
-        // UPDATED loadReviews to prioritize hardcoded ones
         function loadReviews() {
             const grid = document.getElementById('testimonials-grid');
-            grid.innerHTML = ''; // Clear existing content
+            grid.innerHTML = ''; 
 
-            // 1. Load Hardcoded Reviews First
             hardcodedReviews.forEach(review => {
                  const card = createReviewCard(review.name, review.text, review.rating, review.eventType, review.time);
                  grid.appendChild(card);
             });
 
-            // 2. Load Local Storage Reviews Second
             const storedReviews = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
-            // Filter out old spam/button smashed reviews based on new rules before displaying
             const validStoredReviews = storedReviews.filter(review => 
                 review.rating >= 4 && isValidName(review.name) && isValidMessage(review.text)
             );
 
             validStoredReviews.forEach(review => {
                 const card = createReviewCard(review.name, review.text, review.rating, review.eventType, review.time);
-                grid.appendChild(card); // Append to end
+                grid.appendChild(card);
             });
         }
 
-        // --- UPDATED GOLD SHOWER (TRIPLE QUANTITY & DURATION) ---
+        // --- UPDATED GOLD SHOWER & EMOJI CONTROL ---
         function triggerGoldShower() {
             const colors = ['#C5A059', '#FFD700', '#DAA520', '#F0E68C'];
+            const emojis = document.querySelectorAll('.corner-pop');
             
-            // Spawn 180 particles (Triple quantity)
-            for (let i = 0; i < 180; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * 100 + 'vw';
-                // Longer fall speed for triple duration look
-                confetti.style.animationDuration = (Math.random() * 5 + 5) + 's'; 
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.width = (Math.random() * 6 + 4) + 'px';
-                confetti.style.height = confetti.style.width;
-                
-                document.body.appendChild(confetti);
-                
-                // Cleanup after animation finishes (12000ms = 12s = Triple duration)
-                setTimeout(() => {
-                    confetti.remove();
-                }, 12000);
-            }
+            // 1. Show Emojis
+            emojis.forEach(el => el.classList.add('active'));
+
+            // 2. Continuous Rain Logic
+            // We run a loop that spawns particles continuously for 10 seconds.
+            const endTime = Date.now() + 10000; // 10 seconds from now
+
+            const interval = setInterval(() => {
+                // Stop spawning after 10 seconds
+                if (Date.now() > endTime) {
+                    clearInterval(interval);
+                    // Hide Emojis
+                    emojis.forEach(el => el.classList.remove('active'));
+                    return;
+                }
+
+                // Spawn a batch of particles every tick (creates heavy rain effect)
+                for (let i = 0; i < 10; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    
+                    // REVERTED SPEED: Fast (2s to 4s)
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 8 + 4) + 'px';
+                    confetti.style.height = confetti.style.width;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // Cleanup individual particle after it falls
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 4000);
+                }
+            }, 100); // Run this batch generation every 100ms
         }
 
         function highlightStars(n) {
@@ -683,7 +713,6 @@
             let eventType = document.getElementById('review-event-type').value;
             const otherInput = document.getElementById('other-event-input');
 
-            // --- NEW SPAM CHECKS ---
             if (!isValidName(name)) {
                  alert("Please enter a valid Name (e.g., First Last). No numbers or symbols allowed.");
                  document.getElementById('review-name').focus();
@@ -706,7 +735,6 @@
                 eventType = typedEvent;
                 formData.set('event_type', eventType);
             }
-            // -----------------------
 
             const existing = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
             const isDuplicate = existing.some(review => 
@@ -750,8 +778,6 @@
 
                 existing.push(newReviewObj);
                 localStorage.setItem('haroon_reviews', JSON.stringify(existing));
-
-                // Reload reviews to ensure correct ordering (Hardcoded first, then new local one)
                 loadReviews(); 
             }
         });
