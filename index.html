@@ -279,7 +279,9 @@
                 </div>
 
             <div id="see-more-container" class="text-center mb-16 hidden">
-                <button onclick="toggleSeeMore()" class="border border-gold text-gold hover:bg-gold hover:text-white px-8 py-3 rounded-full transition duration-300 uppercase tracking-wider text-sm font-bold">See More Reviews</button>
+                <button onclick="toggleSeeMore()" class="border border-gold text-gold hover:bg-gold hover:text-white px-8 py-3 rounded-full transition duration-300 uppercase tracking-wider text-sm font-bold">
+                    See More Reviews
+                </button>
             </div>
 
             <div class="max-w-2xl mx-auto text-center reveal">
@@ -298,9 +300,15 @@
                     <div id="rating-text" class="text-gold font-medium mb-4 h-6"></div>
 
                     <form id="review-form" class="hidden space-y-4 animate-fade-in-up">
+                        
+                        <input type="hidden" name="access_key" value="808f96c3-d713-4d21-b264-5622d3be4efd">
+                        <input type="hidden" name="subject" value="New Review for Haroon's Events">
+                        <input type="hidden" name="from_name" value="Wedding Site Feedback">
+
                         <div class="relative">
                             <input type="text" name="name" id="review-name" required placeholder="Your Name (e.g. John Doe)" class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold">
                         </div>
+
                         <div class="relative">
                              <select name="event_type" id="review-event-type" required onchange="toggleOtherInput(this)" class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white focus:outline-none focus:border-gold appearance-none cursor-pointer">
                                  <option value="" disabled selected class="text-gray-500">Select Event Type</option>
@@ -309,12 +317,17 @@
                                  <option value="Birthday Party" class="bg-dark text-white">Birthday Party</option>
                                  <option value="Other" class="bg-dark text-white">Other (Please Specify)</option>
                              </select>
-                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                             </div>
                         </div>
+
                         <div id="other-event-container" class="hidden relative animate-fade-in-up">
                             <input type="text" id="other-event-input" placeholder="Type your specific event..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold border-l-4 border-l-gold">
                         </div>
+                        
                         <textarea name="message" id="review-message" required rows="3" placeholder="Tell us about your event experience (min 1 word)..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold resize-none"></textarea>
+                        
                         <button type="submit" class="bg-gold px-8 py-3 rounded-full font-bold hover:bg-yellow-600 transition w-full flex items-center justify-center gap-2 shadow-lg">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2z"/></svg>
                             Submit Review Now
@@ -333,22 +346,69 @@
     <footer id="socials" class="bg-[#0f392b] text-white pt-16 pb-8 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                
                 <div class="space-y-6">
                     <div class="flex items-center gap-3">
-                        <img src="logo.png" alt="Haroon's Logo" onerror="this.src='https://placehold.co/100x100/0f392b/C5A059?text=H'; this.onerror=null;" class="w-12 h-12 rounded-full border border-gold object-cover">
-                        <div><h3 class="text-2xl font-serif font-bold text-white tracking-wide">HAROON'S</h3><p class="text-[10px] text-gold uppercase tracking-[0.3em]">Weddings & Events</p></div>
+                        <img src="logo.png" 
+                             alt="Haroon's Logo" 
+                             onerror="this.src='https://placehold.co/100x100/0f392b/C5A059?text=H'; this.onerror=null;"
+                             class="w-12 h-12 rounded-full border border-gold object-cover">
+                        <div>
+                            <h3 class="text-2xl font-serif font-bold text-white tracking-wide">HAROON'S</h3>
+                            <p class="text-[10px] text-gold uppercase tracking-[0.3em]">Weddings & Events</p>
+                        </div>
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed max-w-sm">Turning your special moments into lifelong memories. We provide full-service planning for weddings, corporate galas, and private parties.</p>
+                    <p class="text-gray-300 text-sm leading-relaxed max-w-sm">
+                        Turning your special moments into lifelong memories. We provide full-service planning for weddings, corporate galas, and private parties.
+                    </p>
                     <div class="flex gap-4">
-                        <a href="https://www.instagram.com/haroons_weddings/?hl=en" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
-                        <a href="https://www.facebook.com/p/Haroons-weddings-events-100063703044091/" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-                        <a href="https://www.youtube.com/channel/UC5XX2UPV5JB6wIaPxrPlMbg" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg></a>
+                        <a href="https://www.instagram.com/haroons_weddings/?hl=en" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        </a>
+                        <a href="https://www.facebook.com/p/Haroons-weddings-events-100063703044091/" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UC5XX2UPV5JB6wIaPxrPlMbg" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+                        </a>
                     </div>
                 </div>
-                <div class="md:pl-10"><h4 class="text-gold font-bold text-lg mb-6">Quick Links</h4><ul class="space-y-3"><li><a href="#" onclick="scrollToId('home')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Home</a></li><li><a href="#" onclick="scrollToId('services')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Services</a></li><li><a href="#" onclick="scrollToId('gallery')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Gallery</a></li><li><a href="#" onclick="scrollToId('contact')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Contact</a></li></ul></div>
-                <div><h4 class="text-gold font-bold text-lg mb-6">Contact</h4><ul class="space-y-4 text-gray-300 text-sm"><li class="flex items-start gap-3"><span class="text-gold mt-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span>Near Jamia College, Chembakuth,<br>Edavanna, Kerala 676541</span></li><li class="flex items-center gap-3"><span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><div><div class="block">+91 9037874001</div><div class="block">+91 9567525723</div></div></li><li class="flex items-center gap-3"><span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span><span>haroonsevent@gmail.com</span></li></ul></div>
+
+                <div class="md:pl-10">
+                    <h4 class="text-gold font-bold text-lg mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" onclick="scrollToId('home')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Home</a></li>
+                        <li><a href="#" onclick="scrollToId('services')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Services</a></li>
+                        <li><a href="#" onclick="scrollToId('gallery')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Gallery</a></li>
+                        <li><a href="#" onclick="scrollToId('contact')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-gold font-bold text-lg mb-6">Contact</h4>
+                    <ul class="space-y-4 text-gray-300 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-gold mt-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                            <span>Near Jamia College, Chembakuth,<br>Edavanna, Kerala 676541</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+                            <div>
+                                <div class="block">+91 9037874001</div>
+                                <div class="block">+91 9567525723</div>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                            <span>haroonsevent@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="border-t border-white/10 pt-8 text-center text-gray-400 text-xs"><p>&copy; 2025 Haroon's Weddings & Events Management Company. All rights reserved.</p></div>
+
+            <div class="border-t border-white/10 pt-8 text-center text-gray-400 text-xs">
+                <p>&copy; 2025 Haroon's Weddings & Events Management Company. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
@@ -361,6 +421,7 @@
         let isExpanded = false;
         let globalReviews = []; // Store fetched reviews
 
+        // FEATURED REVIEWS (Moved to BOTTOM of list logic)
         const hardcodedReviews = [
             { name: "Adnan & Fatima", text: "Haroon's made our dream wedding a reality. The stage decoration was breathtaking and exactly what we imagined!", rating: 5, eventType: "Wedding", time: "10/28/2023 02:30 PM" },
             { name: "TechSolutions Pvt Ltd", text: "Professional, punctual, and perfect execution. The annual meet was handled flawlessly. Highly recommended.", rating: 5, eventType: "Corporate Event", time: "11/15/2023 10:00 AM" }
@@ -390,7 +451,7 @@
                 });
         }
 
-        // Render Reviews
+        // Render Reviews (Sorted: Newest Global -> Hardcoded)
         function loadReviews() {
             const grid = document.getElementById('testimonials-grid');
             grid.innerHTML = ''; 
@@ -410,7 +471,13 @@
             const newCard = document.createElement('div');
             newCard.className = "review-card bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal active relative";
             newCard.setAttribute('data-index', index);
-            let starsHtml = ""; for(let i=0; i<review.rating; i++) starsHtml += "★";
+            
+            // Ensure rating is an integer for loop
+            let ratingInt = parseInt(review.rating);
+            if(isNaN(ratingInt)) ratingInt = 5; // Fallback
+
+            let starsHtml = ""; 
+            for(let i=0; i<ratingInt; i++) starsHtml += "★";
             
             // Format time if it's a raw date string
             let displayTime = review.time || review.date; 
@@ -571,13 +638,7 @@
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
         // INITIALIZE
-        // Check if user set the URL, otherwise just load hardcoded
-        if(GOOGLE_SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbwhtBle7BrR2Ip8Q_-rQI1Y3tTQ37PDxGdDyBXRnQimAOVFUANHwG7RStXeHJFvY5bHSQ/exec")) {
-            console.log("Global DB not set up. Loading local only.");
-            loadReviews();
-        } else {
-            fetchReviews();
-        }
+        fetchReviews();
     </script>
 </body>
 </html>
