@@ -249,8 +249,14 @@
                 <div class="w-24 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
             </div>
 
-            <div id="testimonials-grid" class="grid md:grid-cols-3 gap-8 mb-16">
+            <div id="testimonials-grid" class="grid md:grid-cols-3 gap-8 mb-16 transition-all duration-500">
                 </div>
+
+            <div id="see-more-container" class="text-center mb-16 hidden">
+                <button onclick="toggleSeeMore()" class="border border-gold text-gold hover:bg-gold hover:text-white px-8 py-3 rounded-full transition duration-300 uppercase tracking-wider text-sm font-bold">
+                    See More Reviews
+                </button>
+            </div>
 
             <div class="max-w-2xl mx-auto text-center reveal">
                 <div class="bg-white/5 p-8 rounded-3xl border border-gold/30 backdrop-blur-sm shadow-2xl">
@@ -299,92 +305,6 @@
                         <button type="submit" class="bg-gold px-8 py-3 rounded-full font-bold hover:bg-yellow-600 transition w-full flex items-center justify-center gap-2 shadow-lg">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2z"/></svg>
                             Submit Review Now
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-2 gap-16 items-start">
-                <div class="reveal">
-                    <h2 class="text-gold tracking-wider uppercase mb-2 font-medium">Get in Touch</h2>
-                    <h3 class="text-4xl font-serif font-bold text-dark mb-6">Let's Plan Your Big Day</h3>
-                    <p class="text-gray-600 mb-10 text-lg leading-relaxed">
-                        Ready to start planning? Fill out the form or contact us directly. We offer free initial consultations.
-                    </p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-4 group">
-                            <div class="w-12 h-12 bg-dark/5 rounded-xl flex items-center justify-center text-dark group-hover:bg-gold group-hover:text-white transition duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-dark">Phone</h4>
-                                <p class="text-gray-600">+91 9037874001, +91 9567525723</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 group">
-                            <div class="w-12 h-12 bg-dark/5 rounded-xl flex items-center justify-center text-dark group-hover:bg-gold group-hover:text-white transition duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-dark">Email</h4>
-                                <p class="text-gray-600">haroonsevent@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 group">
-                            <div class="w-12 h-12 bg-dark/5 rounded-xl flex items-center justify-center text-dark group-hover:bg-gold group-hover:text-white transition duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-dark">Location</h4>
-                                <p class="text-gray-600">Near Jamia College, Chembakuth, Edavanna</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-3xl shadow-lg border border-gray-100 reveal" style="transition-delay: 200ms">
-                    <form onsubmit="sendWhatsApp(event)" class="space-y-6">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name <span class="text-red-500">*</span></label>
-                                <input type="text" id="fname" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name <span class="text-red-500">*</span></label>
-                                <input type="text" id="lname" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Email <span class="text-red-500">*</span></label>
-                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">WhatsApp <span class="text-red-500">*</span></label>
-                                <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Event Type</label>
-                            <select id="event" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold bg-white">
-                                <option>Wedding</option>
-                                <option>Corporate Event</option>
-                                <option>Birthday Party</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
-                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white"></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-gold text-white font-bold py-4 rounded-xl hover:bg-yellow-600 transition shadow-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                            Send Inquiry via WhatsApp
                         </button>
                     </form>
                 </div>
@@ -493,8 +413,9 @@
 
         // --- 4. Review System ---
         let currentRating = 0;
+        let isExpanded = false; // State for "See More"
 
-        // HARDCODED REVIEWS (Always appear at top)
+        // HARDCODED REVIEWS (Featured at Top)
         const hardcodedReviews = [
             {
                 name: "Adnan & Fatima",
@@ -512,6 +433,29 @@
             }
         ];
         
+        // --- CLEANUP DUPLICATES ON LOAD ---
+        function cleanLocalStorage() {
+            let storedReviews = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
+            const uniqueMap = new Map();
+            
+            storedReviews.forEach(review => {
+                // Create a unique key based on Name + Text (ignoring case)
+                const key = `${review.name.toLowerCase()}|${review.text.toLowerCase()}`;
+                if (!uniqueMap.has(key)) {
+                    uniqueMap.set(key, review);
+                }
+            });
+            
+            // Convert map back to array
+            const cleanedReviews = Array.from(uniqueMap.values());
+            
+            // Only update local storage if duplicates were found/removed
+            if (cleanedReviews.length !== storedReviews.length) {
+                localStorage.setItem('haroon_reviews', JSON.stringify(cleanedReviews));
+                console.log("Duplicates cleaned from local storage.");
+            }
+        }
+
         function toggleOtherInput(selectElement) {
             const container = document.getElementById('other-event-container');
             const input = document.getElementById('other-event-input');
@@ -547,55 +491,97 @@
             return false;
         }
 
-        function createReviewCard(name, text, rating, eventType = "Happy Customer", time = "") {
+        function createReviewCard(review, index) {
             const newCard = document.createElement('div');
-            newCard.className = "bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal active relative";
-            
+            // Added 'review-card' class for referencing later
+            newCard.className = "review-card bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal active relative";
+            newCard.setAttribute('data-index', index); // Track index for visibility logic
+
             let starsHtml = "";
-            for(let i=0; i<rating; i++) starsHtml += "★";
+            for(let i=0; i<review.rating; i++) starsHtml += "★";
             
             newCard.innerHTML = `
                 <div class="flex gap-1 mb-4 text-gold text-lg">${starsHtml}</div>
-                <p class="text-gray-300 italic mb-6">"${text}"</p>
+                <p class="text-gray-300 italic mb-6">"${review.text}"</p>
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-gold font-bold border border-gold/30">${name.charAt(0).toUpperCase()}</div>
+                    <div class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-gold font-bold border border-gold/30">${review.name.charAt(0).toUpperCase()}</div>
                     <div>
-                        <h4 class="font-bold text-white text-sm">${name}</h4>
-                        <span class="text-xs text-gold uppercase tracking-wider block mt-1">${eventType}</span>
+                        <h4 class="font-bold text-white text-sm">${review.name}</h4>
+                        <span class="text-xs text-gold uppercase tracking-wider block mt-1">${review.eventType}</span>
                     </div>
                 </div>
                 <div class="absolute bottom-4 right-4 text-[10px] text-gray-500 font-mono opacity-60">
-                    ${time}
+                    ${review.time}
                 </div>
             `;
             return newCard;
         }
 
+        // --- UPDATED LOADING & VISIBILITY LOGIC ---
         function loadReviews() {
+            cleanLocalStorage(); // Run clean up first
+            
             const grid = document.getElementById('testimonials-grid');
             grid.innerHTML = ''; 
 
-            hardcodedReviews.forEach(review => {
-                 const card = createReviewCard(review.name, review.text, review.rating, review.eventType, review.time);
-                 grid.appendChild(card);
-            });
-
             const storedReviews = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
-            const validStoredReviews = storedReviews.filter(review => 
-                review.rating >= 4 && isValidName(review.name) && isValidMessage(review.text)
-            );
+            
+            // Sort Stored Reviews by Date (Newest First) if possible, or just reverse the array
+            // Assuming newer ones were pushed to the end, reverse makes them appear first
+            const sortedStoredReviews = storedReviews.reverse();
 
-            validStoredReviews.forEach(review => {
-                const card = createReviewCard(review.name, review.text, review.rating, review.eventType, review.time);
+            // Combine: Hardcoded (Featured) + User Reviews (Newest First)
+            const allReviews = [...hardcodedReviews, ...sortedStoredReviews];
+
+            // Render ALL reviews
+            allReviews.forEach((review, index) => {
+                const card = createReviewCard(review, index);
                 grid.appendChild(card);
             });
+
+            updateVisibility();
         }
 
-        // --- UPDATED GOLD SHOWER (4 Seconds Duration) ---
+        function updateVisibility() {
+            const cards = document.querySelectorAll('.review-card');
+            const seeMoreContainer = document.getElementById('see-more-container');
+            const isMobile = window.innerWidth < 768;
+            const limit = isMobile ? 3 : 6;
+
+            let hiddenCount = 0;
+
+            cards.forEach((card, index) => {
+                if (isExpanded) {
+                    card.classList.remove('hidden');
+                } else {
+                    if (index < limit) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                        hiddenCount++;
+                    }
+                }
+            });
+
+            // Toggle Button Visibility
+            if (hiddenCount > 0 && !isExpanded) {
+                seeMoreContainer.classList.remove('hidden');
+            } else {
+                seeMoreContainer.classList.add('hidden');
+            }
+        }
+
+        function toggleSeeMore() {
+            isExpanded = true;
+            updateVisibility();
+        }
+
+        // Update visibility on resize
+        window.addEventListener('resize', updateVisibility);
+
+        // --- GOLD SHOWER (4s) ---
         function triggerGoldShower() {
             const colors = ['#C5A059', '#FFD700', '#DAA520', '#F0E68C'];
-            
-            // Run for 4 seconds
             const endTime = Date.now() + 4000; 
 
             const interval = setInterval(() => {
@@ -603,23 +589,16 @@
                     clearInterval(interval);
                     return;
                 }
-
-                // Spawn particles
                 for (let i = 0; i < 10; i++) {
                     const confetti = document.createElement('div');
                     confetti.classList.add('confetti');
                     confetti.style.left = Math.random() * 100 + 'vw';
-                    // Faster fall speed (1.5s to 3s)
                     confetti.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's'; 
                     confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                     confetti.style.width = (Math.random() * 8 + 4) + 'px';
                     confetti.style.height = confetti.style.width;
-                    
                     document.body.appendChild(confetti);
-                    
-                    setTimeout(() => {
-                        confetti.remove();
-                    }, 3000);
+                    setTimeout(() => { confetti.remove(); }, 3000);
                 }
             }, 100);
         }
@@ -648,25 +627,19 @@
                 void starBtn.offsetWidth; 
                 starBtn.classList.add('star-pop');
             }
-
             highlightStars(n);
             document.getElementById('rating-text').innerText = `You selected ${n} star${n > 1 ? 's' : ''}`;
-
-            if (n === 5) {
-                triggerGoldShower();
-            }
+            if (n === 5) triggerGoldShower();
         }
 
         const reviewForm = document.getElementById('review-form');
         reviewForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // --- ACCIDENTAL DOUBLE-SUBMIT PREVENTION ---
             const submitBtn = reviewForm.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
             const originalBtnText = submitBtn.innerHTML;
             submitBtn.innerHTML = 'Submitting...';
-            // -------------------------------------------
 
             const formData = new FormData(reviewForm);
             const name = formData.get('name');
@@ -727,16 +700,21 @@
                     document.getElementById('other-event-container').classList.add('hidden');
                     document.getElementById('rating-text').innerText = "";
                     document.getElementById('review-form').classList.add('hidden');
+                    
+                    // Change button text permanently for this session
+                    submitBtn.innerHTML = "Thank you for the feedback...";
+                    // Do NOT re-enable the button
+                } else {
+                    throw new Error('Form submission failed');
                 }
             }).catch(error => {
                 console.error('Error:', error);
                 alert("Something went wrong, but we recorded your local feedback!");
-            }).finally(() => {
-                 // Re-enable button after process is complete (success or failure)
-                 submitBtn.disabled = false;
-                 submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
             });
 
+            // Local Update (Optimistic)
             if (currentRating >= 4) {
                 const now = new Date();
                 const timeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
