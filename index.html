@@ -240,6 +240,9 @@
                             <span class="text-xs text-gold uppercase tracking-wider block mt-1">Wedding</span>
                         </div>
                     </div>
+                    <div class="absolute bottom-4 right-4 text-[10px] text-gray-500 font-mono opacity-60">
+                        10/28/2025 02:30 PM
+                    </div>
                 </div>
 
                 <div class="bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal relative" style="transition-delay: 150ms">
@@ -251,6 +254,9 @@
                             <h4 class="font-bold text-white text-sm">TechSolutions Pvt Ltd</h4>
                             <span class="text-xs text-gold uppercase tracking-wider block mt-1">Corporate Event</span>
                         </div>
+                    </div>
+                    <div class="absolute bottom-4 right-4 text-[10px] text-gray-500 font-mono opacity-60">
+                        11/02/2025 11:15 AM
                     </div>
                 </div>
 
@@ -264,6 +270,9 @@
                             <span class="text-xs text-gold uppercase tracking-wider block mt-1">Birthday Party</span>
                         </div>
                     </div>
+                    <div class="absolute bottom-4 right-4 text-[10px] text-gray-500 font-mono opacity-60">
+                        11/15/2025 06:45 PM
+                    </div>
                 </div>
 
             </div>
@@ -273,12 +282,12 @@
                     <h4 class="text-2xl font-serif font-bold text-white mb-2">How was your experience?</h4>
                     <p class="text-gray-400 mb-8">Click a star to rate us and leave a review.</p>
                     
-                    <div class="flex justify-center gap-3 mb-8" id="star-container">
-                        <button onclick="setRating(1)" class="star-btn p-1 focus:outline-none"><svg id="star-1" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
-                        <button onclick="setRating(2)" class="star-btn p-1 focus:outline-none"><svg id="star-2" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
-                        <button onclick="setRating(3)" class="star-btn p-1 focus:outline-none"><svg id="star-3" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
-                        <button onclick="setRating(4)" class="star-btn p-1 focus:outline-none"><svg id="star-4" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
-                        <button onclick="setRating(5)" class="star-btn p-1 focus:outline-none"><svg id="star-5" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                    <div class="flex justify-center gap-3 mb-8" id="star-container" onmouseleave="highlightStars(currentRating)">
+                        <button onclick="setRating(1)" onmouseenter="highlightStars(1)" class="star-btn p-1 focus:outline-none"><svg id="star-1" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                        <button onclick="setRating(2)" onmouseenter="highlightStars(2)" class="star-btn p-1 focus:outline-none"><svg id="star-2" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                        <button onclick="setRating(3)" onmouseenter="highlightStars(3)" class="star-btn p-1 focus:outline-none"><svg id="star-3" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                        <button onclick="setRating(4)" onmouseenter="highlightStars(4)" class="star-btn p-1 focus:outline-none"><svg id="star-4" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                        <button onclick="setRating(5)" onmouseenter="highlightStars(5)" class="star-btn p-1 focus:outline-none"><svg id="star-5" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
                     </div>
 
                     <div id="rating-text" class="text-gold font-medium mb-4 h-6"></div>
@@ -503,7 +512,7 @@
         // --- 4. Review System Visuals ---
         let currentRating = 0;
         
-        // --- 4a. Helper: Create HTML for a single review card (Updated with Event Type & Time) ---
+        // --- 4a. Helper: Create HTML for a single review card ---
         function createReviewCard(name, text, rating, eventType = "Happy Customer", time = "") {
             const newCard = document.createElement('div');
             newCard.className = "bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal active relative";
@@ -544,19 +553,10 @@
         }
 
         // --- 4c. Star Rating Visuals ---
-        function setRating(n) {
-            currentRating = n;
-            document.getElementById('review-form').classList.remove('hidden');
-            document.getElementById('review-form').classList.add('animate-fade-in-up');
-            
+        // Helper function to color the stars based on a number
+        function highlightStars(n) {
             for (let i = 1; i <= 5; i++) {
-                const starBtn = document.querySelector(`button[onclick="setRating(${i})"]`);
                 const starSvg = document.getElementById(`star-${i}`);
-                
-                starBtn.classList.remove('star-pop');
-                void starBtn.offsetWidth; 
-                starBtn.classList.add('star-pop');
-
                 if (i <= n) {
                     starSvg.setAttribute('fill', '#C5A059');
                     starSvg.setAttribute('stroke', '#C5A059');
@@ -565,6 +565,23 @@
                     starSvg.setAttribute('stroke', '#6B7280');
                 }
             }
+        }
+
+        function setRating(n) {
+            currentRating = n;
+            document.getElementById('review-form').classList.remove('hidden');
+            document.getElementById('review-form').classList.add('animate-fade-in-up');
+            
+            // Add pop animation (and reset logic so it plays again if clicked multiple times)
+            for (let i = 1; i <= 5; i++) {
+                const starBtn = document.querySelector(`button[onclick="setRating(${i})"]`);
+                starBtn.classList.remove('star-pop');
+                void starBtn.offsetWidth; 
+                starBtn.classList.add('star-pop');
+            }
+
+            // Permanently set the color for this click
+            highlightStars(n);
             
             document.getElementById('rating-text').innerText = `You selected ${n} star${n > 1 ? 's' : ''}`;
         }
@@ -578,6 +595,21 @@
             const name = formData.get('name');
             const message = formData.get('message');
             const eventType = document.getElementById('review-event-type').value;
+
+            // --- CHECK DUPLICATES ---
+            const existing = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
+            
+            // Check if there is already a review with the SAME NAME and SAME MESSAGE
+            const isDuplicate = existing.some(review => 
+                review.name.toLowerCase() === name.toLowerCase() && 
+                review.text.toLowerCase() === message.toLowerCase()
+            );
+
+            if (isDuplicate) {
+                alert("You have already submitted this review.");
+                return; // Stop execution, do not submit to server or local storage
+            }
+            // ------------------------
 
             // 1. Submit to Web3Forms in background
             fetch('https://api.web3forms.com/submit', {
@@ -612,7 +644,6 @@
                 };
 
                 // Save to Local Storage
-                const existing = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
                 existing.push(newReviewObj);
                 localStorage.setItem('haroon_reviews', JSON.stringify(existing));
 
