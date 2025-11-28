@@ -81,6 +81,21 @@
             z-index: 9998;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
+
+        /* Loader */
+        .loader {
+            border: 3px solid #0f392b;
+            border-radius: 50%;
+            border-top: 3px solid #C5A059;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -127,6 +142,7 @@
                 <button onclick="scrollToId('gallery')" class="text-left py-2 border-b border-gray-100">Gallery</button>
                 <button onclick="scrollToId('contact')" class="text-left py-2 border-b border-gray-100">Contact</button>
                 <button onclick="scrollToId('socials')" class="text-left py-2 border-b border-gray-100">Social Media</button>
+                
                 <button onclick="scrollToId('contact')" class="bg-gold text-white px-6 py-3 rounded-full font-medium hover:bg-yellow-600 transition shadow-lg text-center w-full mt-2">
                     Enquiry
                 </button>
@@ -141,7 +157,9 @@
                  onerror="this.style.display='none'">
             <div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-black -z-10"></div>
         </div>
+        
         <div class="absolute inset-0 bg-dark/60"></div>
+
         <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16 text-white">
             <p class="text-gold tracking-[0.2em] mb-4 uppercase text-lg reveal">Since 1989</p>
             <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 reveal" style="transition-delay: 200ms">
@@ -165,6 +183,7 @@
                 <h3 class="text-4xl font-serif font-bold text-dark">Services We Offer</h3>
                 <div class="w-24 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
             </div>
+
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-gray-50 p-8 rounded-2xl hover:shadow-xl transition duration-300 hover:-translate-y-2 group border border-gray-100 reveal">
                     <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-gold mb-6 shadow-sm group-hover:scale-110 transition">
@@ -251,13 +270,16 @@
                 <div class="w-24 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
             </div>
 
+            <div id="reviews-loader" class="text-center mb-8 hidden">
+                <div class="loader"></div>
+                <p class="text-xs text-gold mt-2">Loading Reviews...</p>
+            </div>
+
             <div id="testimonials-grid" class="grid md:grid-cols-3 gap-8 mb-16 transition-all duration-500">
                 </div>
 
             <div id="see-more-container" class="text-center mb-16 hidden">
-                <button onclick="toggleSeeMore()" class="border border-gold text-gold hover:bg-gold hover:text-white px-8 py-3 rounded-full transition duration-300 uppercase tracking-wider text-sm font-bold">
-                    See More Reviews
-                </button>
+                <button onclick="toggleSeeMore()" class="border border-gold text-gold hover:bg-gold hover:text-white px-8 py-3 rounded-full transition duration-300 uppercase tracking-wider text-sm font-bold">See More Reviews</button>
             </div>
 
             <div class="max-w-2xl mx-auto text-center reveal">
@@ -276,15 +298,9 @@
                     <div id="rating-text" class="text-gold font-medium mb-4 h-6"></div>
 
                     <form id="review-form" class="hidden space-y-4 animate-fade-in-up">
-                        
-                        <input type="hidden" name="access_key" value="808f96c3-d713-4d21-b264-5622d3be4efd">
-                        <input type="hidden" name="subject" value="New Review for Haroon's Events">
-                        <input type="hidden" name="from_name" value="Wedding Site Feedback">
-
                         <div class="relative">
                             <input type="text" name="name" id="review-name" required placeholder="Your Name (e.g. John Doe)" class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold">
                         </div>
-
                         <div class="relative">
                              <select name="event_type" id="review-event-type" required onchange="toggleOtherInput(this)" class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white focus:outline-none focus:border-gold appearance-none cursor-pointer">
                                  <option value="" disabled selected class="text-gray-500">Select Event Type</option>
@@ -293,17 +309,12 @@
                                  <option value="Birthday Party" class="bg-dark text-white">Birthday Party</option>
                                  <option value="Other" class="bg-dark text-white">Other (Please Specify)</option>
                              </select>
-                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                             </div>
+                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                         </div>
-
                         <div id="other-event-container" class="hidden relative animate-fade-in-up">
                             <input type="text" id="other-event-input" placeholder="Type your specific event..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold border-l-4 border-l-gold">
                         </div>
-                        
                         <textarea name="message" id="review-message" required rows="3" placeholder="Tell us about your event experience (min 1 word)..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold resize-none"></textarea>
-                        
                         <button type="submit" class="bg-gold px-8 py-3 rounded-full font-bold hover:bg-yellow-600 transition w-full flex items-center justify-center gap-2 shadow-lg">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2z"/></svg>
                             Submit Review Now
@@ -319,193 +330,80 @@
         See Less
     </button>
 
-    <section id="contact" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-2 gap-16 items-start">
-                <div class="reveal">
-                    <h2 class="text-gold tracking-wider uppercase mb-2 font-medium">Get in Touch</h2>
-                    <h3 class="text-4xl font-serif font-bold text-dark mb-6">Let's Plan Your Big Day</h3>
-                    <p class="text-gray-600 mb-10 text-lg leading-relaxed">
-                        Ready to start planning? Fill out the form or contact us directly. We offer free initial consultations.
-                    </p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-4 group">
-                            <div class="w-12 h-12 bg-dark/5 rounded-xl flex items-center justify-center text-dark group-hover:bg-gold group-hover:text-white transition duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-dark">Phone</h4>
-                                <p class="text-gray-600">+91 9037874001, +91 9567525723</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 group">
-                            <div class="w-12 h-12 bg-dark/5 rounded-xl flex items-center justify-center text-dark group-hover:bg-gold group-hover:text-white transition duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-dark">Email</h4>
-                                <p class="text-gray-600">haroonsevent@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 group">
-                            <div class="w-12 h-12 bg-dark/5 rounded-xl flex items-center justify-center text-dark group-hover:bg-gold group-hover:text-white transition duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-dark">Location</h4>
-                                <p class="text-gray-600">Near Jamia College, Chembakuth, Edavanna</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-3xl shadow-lg border border-gray-100 reveal" style="transition-delay: 200ms">
-                    <form onsubmit="sendWhatsApp(event)" class="space-y-6">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name <span class="text-red-500">*</span></label>
-                                <input type="text" id="fname" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name <span class="text-red-500">*</span></label>
-                                <input type="text" id="lname" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Email <span class="text-red-500">*</span></label>
-                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">WhatsApp <span class="text-red-500">*</span></label>
-                                <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Event Type</label>
-                            <select id="event" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold bg-white">
-                                <option>Wedding</option>
-                                <option>Corporate Event</option>
-                                <option>Birthday Party</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
-                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white"></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-gold text-white font-bold py-4 rounded-xl hover:bg-yellow-600 transition shadow-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                            Send Inquiry via WhatsApp
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer id="socials" class="bg-[#0f392b] text-white pt-16 pb-8 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 <div class="space-y-6">
                     <div class="flex items-center gap-3">
                         <img src="logo.png" alt="Haroon's Logo" onerror="this.src='https://placehold.co/100x100/0f392b/C5A059?text=H'; this.onerror=null;" class="w-12 h-12 rounded-full border border-gold object-cover">
-                        <div>
-                            <h3 class="text-2xl font-serif font-bold text-white tracking-wide">HAROON'S</h3>
-                            <p class="text-[10px] text-gold uppercase tracking-[0.3em]">Weddings & Events</p>
-                        </div>
+                        <div><h3 class="text-2xl font-serif font-bold text-white tracking-wide">HAROON'S</h3><p class="text-[10px] text-gold uppercase tracking-[0.3em]">Weddings & Events</p></div>
                     </div>
                     <p class="text-gray-300 text-sm leading-relaxed max-w-sm">Turning your special moments into lifelong memories. We provide full-service planning for weddings, corporate galas, and private parties.</p>
                     <div class="flex gap-4">
-                        <a href="https://www.instagram.com/haroons_weddings/?hl=en" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                        </a>
-                        <a href="https://www.facebook.com/p/Haroons-weddings-events-100063703044091/" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                        </a>
-                        <a href="https://www.youtube.com/channel/UC5XX2UPV5JB6wIaPxrPlMbg" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
-                        </a>
+                        <a href="https://www.instagram.com/haroons_weddings/?hl=en" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+                        <a href="https://www.facebook.com/p/Haroons-weddings-events-100063703044091/" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                        <a href="https://www.youtube.com/channel/UC5XX2UPV5JB6wIaPxrPlMbg" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg></a>
                     </div>
                 </div>
-                <div class="md:pl-10">
-                    <h4 class="text-gold font-bold text-lg mb-6">Quick Links</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" onclick="scrollToId('home')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Home</a></li>
-                        <li><a href="#" onclick="scrollToId('services')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Services</a></li>
-                        <li><a href="#" onclick="scrollToId('gallery')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Gallery</a></li>
-                        <li><a href="#" onclick="scrollToId('contact')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-gold font-bold text-lg mb-6">Contact</h4>
-                    <ul class="space-y-4 text-gray-300 text-sm">
-                        <li class="flex items-start gap-3"><span class="text-gold mt-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span>Near Jamia College, Chembakuth,<br>Edavanna, Kerala 676541</span></li>
-                        <li class="flex items-center gap-3"><span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><div><div class="block">+91 9037874001</div><div class="block">+91 9567525723</div></div></li>
-                        <li class="flex items-center gap-3"><span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span><span>haroonsevent@gmail.com</span></li>
-                    </ul>
-                </div>
+                <div class="md:pl-10"><h4 class="text-gold font-bold text-lg mb-6">Quick Links</h4><ul class="space-y-3"><li><a href="#" onclick="scrollToId('home')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Home</a></li><li><a href="#" onclick="scrollToId('services')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Services</a></li><li><a href="#" onclick="scrollToId('gallery')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Gallery</a></li><li><a href="#" onclick="scrollToId('contact')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Contact</a></li></ul></div>
+                <div><h4 class="text-gold font-bold text-lg mb-6">Contact</h4><ul class="space-y-4 text-gray-300 text-sm"><li class="flex items-start gap-3"><span class="text-gold mt-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span>Near Jamia College, Chembakuth,<br>Edavanna, Kerala 676541</span></li><li class="flex items-center gap-3"><span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><div><div class="block">+91 9037874001</div><div class="block">+91 9567525723</div></div></li><li class="flex items-center gap-3"><span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span><span>haroonsevent@gmail.com</span></li></ul></div>
             </div>
-            <div class="border-t border-white/10 pt-8 text-center text-gray-400 text-xs">
-                <p>&copy; 2025 Haroon's Weddings & Events Management Company. All rights reserved.</p>
-            </div>
+            <div class="border-t border-white/10 pt-8 text-center text-gray-400 text-xs"><p>&copy; 2025 Haroon's Weddings & Events Management Company. All rights reserved.</p></div>
         </div>
     </footer>
 
     <script>
-        function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
-        function scrollToId(id) { const el = document.getElementById(id); if(el) { el.scrollIntoView({ behavior: 'smooth' }); document.getElementById('mobile-menu').classList.add('hidden'); } }
-        function sendWhatsApp(e) { e.preventDefault(); const fname = document.getElementById('fname').value; const lname = document.getElementById('lname').value; const email = document.getElementById('email').value; const phone = document.getElementById('phone').value; const event = document.getElementById('event').value; const msg = document.getElementById('message').value; const text = `*New Website Inquiry*%0A%0A*Name:* ${fname} ${lname}%0A*Email:* ${email}%0A*Phone:* ${phone}%0A*Event:* ${event}%0A*Message:* ${msg}`; window.open(`https://wa.me/919037874001?text=${text}`, '_blank'); }
+        // --- 1. CONFIGURATION ---
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwhtBle7BrR2Ip8Q_-rQI1Y3tTQ37PDxGdDyBXRnQimAOVFUANHwG7RStXeHJFvY5bHSQ/exec"; 
 
+        // --- 2. GLOBAL REVIEWS LOGIC ---
         let currentRating = 0;
         let isExpanded = false;
+        let globalReviews = []; // Store fetched reviews
 
         const hardcodedReviews = [
             { name: "Adnan & Fatima", text: "Haroon's made our dream wedding a reality. The stage decoration was breathtaking and exactly what we imagined!", rating: 5, eventType: "Wedding", time: "10/28/2023 02:30 PM" },
             { name: "TechSolutions Pvt Ltd", text: "Professional, punctual, and perfect execution. The annual meet was handled flawlessly. Highly recommended.", rating: 5, eventType: "Corporate Event", time: "11/15/2023 10:00 AM" }
         ];
 
-        function isValidName(text) {
-            const nameRegex = /^[a-zA-Z\s\.]+$/;
-            const noRepeat = !/(.)\1{2,}/.test(text);
-            return nameRegex.test(text) && text.trim().length >= 3 && noRepeat;
+        // Fetch Reviews from Google Sheet
+        function fetchReviews() {
+            const loader = document.getElementById('reviews-loader');
+            loader.classList.remove('hidden');
+            
+            fetch(GOOGLE_SCRIPT_URL)
+                .then(response => response.json())
+                .then(data => {
+                    // Filter Spam from the cloud data (Extra layer of security)
+                    globalReviews = data.filter(review => isValidName(review.name) && isValidMessage(review.text));
+                    // Sort: Newest First (Assuming data comes in chronological order, reverse it)
+                    globalReviews.reverse();
+                    loadReviews();
+                })
+                .catch(error => {
+                    console.error('Error fetching reviews:', error);
+                    // Fallback to hardcoded only if fetch fails
+                    loadReviews(); 
+                })
+                .finally(() => {
+                    loader.classList.add('hidden');
+                });
         }
 
-        function isValidMessage(text) {
-            if (text.length < 4) return false;
-            const wordCount = text.trim().split(/\s+/).length;
-            if (wordCount < 1) return false;
-            if (!/[aeiouyAEIOUY]/.test(text)) return false; 
-            if (/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{6,}/.test(text)) return false; 
-            if (/(.)\1{3,}/.test(text)) return false;
-            return true;
-        }
+        // Render Reviews
+        function loadReviews() {
+            const grid = document.getElementById('testimonials-grid');
+            grid.innerHTML = ''; 
 
-        function cleanLocalStorage() {
-            let storedReviews = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
-            let validReviews = storedReviews.filter(review => isValidName(review.name) && isValidMessage(review.text));
-            const uniqueMap = new Map();
-            validReviews.forEach(review => {
-                const key = `${review.name.toLowerCase()}|${review.text.toLowerCase()}`;
-                if (!uniqueMap.has(key)) uniqueMap.set(key, review);
+            // Combine: Global (Top) + Hardcoded (Bottom)
+            const allReviews = [...globalReviews, ...hardcodedReviews];
+
+            allReviews.forEach((review, index) => {
+                const card = createReviewCard(review, index);
+                grid.appendChild(card);
             });
-            const cleanedReviews = Array.from(uniqueMap.values());
-            if (cleanedReviews.length !== storedReviews.length) {
-                localStorage.setItem('haroon_reviews', JSON.stringify(cleanedReviews));
-            }
-        }
 
-        function toggleOtherInput(selectElement) {
-            const container = document.getElementById('other-event-container');
-            const input = document.getElementById('other-event-input');
-            if (selectElement.value === "Other") { container.classList.remove('hidden'); input.required = true; input.focus(); }
-            else { container.classList.add('hidden'); input.required = false; input.value = ""; }
-        }
-
-        function isSpamOrInvalidOtherEvent(text) {
-            if (text.length < 3 || /(.)\1{3,}/.test(text) || /^\d+$/.test(text) || !/^[a-zA-Z0-9\s\-\']+$/.test(text)) return true;
-            return false;
+            updateVisibility();
         }
 
         function createReviewCard(review, index) {
@@ -513,19 +411,104 @@
             newCard.className = "review-card bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal active relative";
             newCard.setAttribute('data-index', index);
             let starsHtml = ""; for(let i=0; i<review.rating; i++) starsHtml += "★";
-            newCard.innerHTML = `<div class="flex gap-1 mb-4 text-gold text-lg">${starsHtml}</div><p class="text-gray-300 italic mb-6">"${review.text}"</p><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-gold font-bold border border-gold/30">${review.name.charAt(0).toUpperCase()}</div><div><h4 class="font-bold text-white text-sm">${review.name}</h4><span class="text-xs text-gold uppercase tracking-wider block mt-1">${review.eventType}</span></div></div><div class="absolute bottom-4 right-4 text-[10px] text-gray-500 font-mono opacity-60">${review.time}</div>`;
+            
+            // Format time if it's a raw date string
+            let displayTime = review.time || review.date; 
+            if(displayTime && displayTime.includes("T")) {
+                 displayTime = new Date(displayTime).toLocaleString();
+            }
+
+            newCard.innerHTML = `
+                <div class="flex gap-1 mb-4 text-gold text-lg">${starsHtml}</div>
+                <p class="text-gray-300 italic mb-6">"${review.text}"</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-gold font-bold border border-gold/30">${review.name.charAt(0).toUpperCase()}</div>
+                    <div>
+                        <h4 class="font-bold text-white text-sm">${review.name}</h4>
+                        <span class="text-xs text-gold uppercase tracking-wider block mt-1">${review.eventType}</span>
+                    </div>
+                </div>
+                <div class="absolute bottom-4 right-4 text-[10px] text-gray-500 font-mono opacity-60">${displayTime}</div>
+            `;
             return newCard;
         }
 
-        function loadReviews() {
-            cleanLocalStorage();
-            const grid = document.getElementById('testimonials-grid');
-            grid.innerHTML = ''; 
-            const storedReviews = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
-            const sortedStoredReviews = storedReviews.reverse();
-            const allReviews = [...sortedStoredReviews, ...hardcodedReviews];
-            allReviews.forEach((review, index) => { grid.appendChild(createReviewCard(review, index)); });
-            updateVisibility();
+        // --- 3. SUBMISSION LOGIC (POST TO GOOGLE) ---
+        const reviewForm = document.getElementById('review-form');
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = reviewForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true; 
+            const originalBtnText = submitBtn.innerHTML; 
+            submitBtn.innerHTML = 'Submitting...';
+
+            // Gather Data
+            const formData = new FormData(reviewForm);
+            const name = formData.get('name'); 
+            const message = formData.get('message');
+            let eventType = document.getElementById('review-event-type').value; 
+            const otherInput = document.getElementById('other-event-input');
+
+            // --- VALIDATION ---
+            if (!isValidName(name)) { alert("Invalid Name."); document.getElementById('review-name').focus(); submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText; return; }
+            if (!isValidMessage(message)) { alert("Invalid Message."); document.getElementById('review-message').focus(); submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText; return; }
+            if (eventType === "Other") {
+                const typedEvent = otherInput.value.trim();
+                if (isSpamOrInvalidOtherEvent(typedEvent)) { alert("Invalid Event."); otherInput.focus(); submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText; return; }
+                eventType = typedEvent; 
+            }
+
+            // --- CHECK DUPLICATE (In Global List) ---
+            if (globalReviews.some(r => r.name.toLowerCase() === name.toLowerCase() && r.text.toLowerCase() === message.toLowerCase())) {
+                alert("You have already submitted this review.");
+                submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText;
+                return;
+            }
+
+            // Prepare Data for Google Sheet
+            const params = new URLSearchParams();
+            params.append('name', name);
+            params.append('text', message);
+            params.append('rating', currentRating);
+            params.append('eventType', eventType);
+            params.append('time', new Date().toLocaleString());
+
+            // --- SEND TO GOOGLE SHEET ---
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                body: params,
+                mode: 'no-cors' // Important for Google Script
+            }).then(() => {
+                alert("Thank you for your review!");
+                reviewForm.reset(); setRating(0);
+                document.getElementById('other-event-container').classList.add('hidden'); 
+                document.getElementById('rating-text').innerText = "";
+                document.getElementById('review-form').classList.add('hidden');
+                submitBtn.innerHTML = "Thank you for the feedback...";
+                
+                // Optimistically add to list without reloading
+                globalReviews.unshift({ name, text: message, rating: currentRating, eventType, time: new Date().toLocaleString() });
+                loadReviews();
+                
+                if (currentRating >= 4) triggerGoldShower();
+
+            }).catch(error => {
+                console.error('Error:', error);
+                alert("Network error. Please try again.");
+                submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText;
+            });
+        });
+
+        // --- UTILITIES (Validation, UI) ---
+        function isValidName(text) { return /^[a-zA-Z\s\.]+$/.test(text) && text.trim().length >= 3 && !/(.)\1{2,}/.test(text); }
+        function isValidMessage(text) { return text.length >= 4 && text.trim().split(/\s+/).length >= 1 && /[aeiouyAEIOUY]/.test(text) && !/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{6,}/.test(text) && !/(.)\1{3,}/.test(text); }
+        function isSpamOrInvalidOtherEvent(text) { return text.length < 3 || /(.)\1{3,}/.test(text) || /^\d+$/.test(text) || !/^[a-zA-Z0-9\s\-\']+$/.test(text); }
+        
+        function toggleOtherInput(selectElement) {
+            const container = document.getElementById('other-event-container');
+            const input = document.getElementById('other-event-input');
+            if (selectElement.value === "Other") { container.classList.remove('hidden'); input.required = true; input.focus(); }
+            else { container.classList.add('hidden'); input.required = false; input.value = ""; }
         }
 
         function updateVisibility() {
@@ -535,7 +518,6 @@
             const isMobile = window.innerWidth < 768;
             const limit = isMobile ? 3 : 6;
             let hiddenCount = 0;
-
             cards.forEach((card, index) => {
                 if (isExpanded) { card.classList.remove('hidden'); }
                 else {
@@ -543,21 +525,12 @@
                     else { card.classList.add('hidden'); hiddenCount++; }
                 }
             });
-
             if (hiddenCount > 0 && !isExpanded) { seeMoreContainer.classList.remove('hidden'); floatingBtn.classList.add('hidden'); }
             else if (isExpanded) { seeMoreContainer.classList.add('hidden'); floatingBtn.classList.remove('hidden'); }
             else { seeMoreContainer.classList.add('hidden'); floatingBtn.classList.add('hidden'); }
         }
-
         function toggleSeeMore() { isExpanded = true; updateVisibility(); }
-        
-        function toggleSeeLess() {
-            isExpanded = false;
-            updateVisibility();
-            const grid = document.getElementById('testimonials-grid');
-            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
+        function toggleSeeLess() { isExpanded = false; updateVisibility(); document.getElementById('testimonials-grid').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
         window.addEventListener('resize', updateVisibility);
 
         function triggerGoldShower() {
@@ -579,7 +552,6 @@
         }
 
         function highlightStars(n) { for (let i = 1; i <= 5; i++) { const starSvg = document.getElementById(`star-${i}`); if (i <= n) { starSvg.setAttribute('fill', '#C5A059'); starSvg.setAttribute('stroke', '#C5A059'); } else { starSvg.setAttribute('fill', 'none'); starSvg.setAttribute('stroke', '#6B7280'); } } }
-
         function setRating(n) {
             currentRating = n;
             document.getElementById('review-form').classList.remove('hidden');
@@ -590,47 +562,22 @@
             }
             highlightStars(n);
             document.getElementById('rating-text').innerText = `You selected ${n} star${n > 1 ? 's' : ''}`;
-            if (n === 5) triggerGoldShower();
         }
-
-        const reviewForm = document.getElementById('review-form');
-        reviewForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const submitBtn = reviewForm.querySelector('button[type="submit"]');
-            submitBtn.disabled = true; const originalBtnText = submitBtn.innerHTML; submitBtn.innerHTML = 'Submitting...';
-            const formData = new FormData(reviewForm);
-            const name = formData.get('name'); const message = formData.get('message');
-            let eventType = document.getElementById('review-event-type').value; const otherInput = document.getElementById('other-event-input');
-
-            if (!isValidName(name)) { alert("Please enter a valid Name (Letters only, min 3 chars). No numbers or symbols."); document.getElementById('review-name').focus(); submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText; return; }
-            if (!isValidMessage(message)) { alert("Please enter a valid review (min 4 chars, 1 word). No gibberish."); document.getElementById('review-message').focus(); submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText; return; }
-            if (eventType === "Other") {
-                const typedEvent = otherInput.value.trim();
-                if (isSpamOrInvalidOtherEvent(typedEvent)) { alert("Please enter a valid Event Name. Avoid symbols or random letters."); otherInput.focus(); submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText; return; }
-                eventType = typedEvent; formData.set('event_type', eventType);
-            }
-
-            const existing = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
-            if (existing.some(review => review.name.toLowerCase() === name.toLowerCase() && review.text.toLowerCase() === message.toLowerCase())) { alert("You have already submitted this review."); submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText; return; }
-
-            fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData }).then(response => {
-                if(response.ok) {
-                    alert("Thank you for your review!"); reviewForm.reset(); setRating(0);
-                    document.getElementById('other-event-container').classList.add('hidden'); document.getElementById('rating-text').innerText = "";
-                    document.getElementById('review-form').classList.add('hidden'); submitBtn.innerHTML = "Thank you for the feedback...";
-                } else { throw new Error('Form submission failed'); }
-            }).catch(error => { console.error('Error:', error); alert("Something went wrong, but we recorded your local feedback!"); submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText; });
-
-            if (currentRating >= 4) {
-                const now = new Date(); const timeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                const newReviewObj = { name: name, text: message, rating: currentRating, eventType: eventType, time: timeString };
-                existing.push(newReviewObj); localStorage.setItem('haroon_reviews', JSON.stringify(existing)); loadReviews();
-            }
-        });
+        function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
+        function scrollToId(id) { const el = document.getElementById(id); if(el) { el.scrollIntoView({ behavior: 'smooth' }); document.getElementById('mobile-menu').classList.add('hidden'); } }
+        function sendWhatsApp(e) { e.preventDefault(); const fname = document.getElementById('fname').value; const lname = document.getElementById('lname').value; const email = document.getElementById('email').value; const phone = document.getElementById('phone').value; const event = document.getElementById('event').value; const msg = document.getElementById('message').value; const text = `*New Website Inquiry*%0A%0A*Name:* ${fname} ${lname}%0A*Email:* ${email}%0A*Phone:* ${phone}%0A*Event:* ${event}%0A*Message:* ${msg}`; window.open(`https://wa.me/919037874001?text=${text}`, '_blank'); }
 
         const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) { entry.target.classList.add('active'); } else { entry.target.classList.remove('active'); } }); }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        loadReviews();
+
+        // INITIALIZE
+        // Check if user set the URL, otherwise just load hardcoded
+        if(GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) {
+            console.log("Global DB not set up. Loading local only.");
+            loadReviews();
+        } else {
+            fetchReviews();
+        }
     </script>
 </body>
 </html>
