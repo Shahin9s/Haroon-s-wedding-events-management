@@ -300,11 +300,97 @@
                             <input type="text" id="other-event-input" placeholder="Type your specific event..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold border-l-4 border-l-gold">
                         </div>
                         
-                        <textarea name="message" id="review-message" required rows="3" placeholder="Tell us about your event experience (min 3 words)..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold resize-none"></textarea>
+                        <textarea name="message" id="review-message" required rows="3" placeholder="Tell us about your event experience (min 4 chars)..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold resize-none"></textarea>
                         
                         <button type="submit" class="bg-gold px-8 py-3 rounded-full font-bold hover:bg-yellow-600 transition w-full flex items-center justify-center gap-2 shadow-lg">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2z"/></svg>
                             Submit Review Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-16 items-start">
+                <div class="reveal">
+                    <h2 class="text-gold tracking-wider uppercase mb-2 font-medium">Get in Touch</h2>
+                    <h3 class="text-4xl font-serif font-bold text-dark mb-6">Let's Plan Your Big Day</h3>
+                    <p class="text-gray-600 mb-10 text-lg leading-relaxed">
+                        Ready to start planning? Fill out the form or contact us directly. We offer free initial consultations.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4 group">
+                            <div class="w-12 h-12 bg-dark/5 rounded-xl flex items-center justify-center text-dark group-hover:bg-gold group-hover:text-white transition duration-300">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark">Phone</h4>
+                                <p class="text-gray-600">+91 9037874001, +91 9567525723</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 group">
+                            <div class="w-12 h-12 bg-dark/5 rounded-xl flex items-center justify-center text-dark group-hover:bg-gold group-hover:text-white transition duration-300">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark">Email</h4>
+                                <p class="text-gray-600">haroonsevent@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 group">
+                            <div class="w-12 h-12 bg-dark/5 rounded-xl flex items-center justify-center text-dark group-hover:bg-gold group-hover:text-white transition duration-300">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark">Location</h4>
+                                <p class="text-gray-600">Near Jamia College, Chembakuth, Edavanna</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-3xl shadow-lg border border-gray-100 reveal" style="transition-delay: 200ms">
+                    <form onsubmit="sendWhatsApp(event)" class="space-y-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name <span class="text-red-500">*</span></label>
+                                <input type="text" id="fname" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name <span class="text-red-500">*</span></label>
+                                <input type="text" id="lname" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email <span class="text-red-500">*</span></label>
+                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">WhatsApp <span class="text-red-500">*</span></label>
+                                <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Event Type</label>
+                            <select id="event" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold bg-white">
+                                <option>Wedding</option>
+                                <option>Corporate Event</option>
+                                <option>Birthday Party</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gold text-white font-bold py-4 rounded-xl hover:bg-yellow-600 transition shadow-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                            Send Inquiry via WhatsApp
                         </button>
                     </form>
                 </div>
@@ -415,7 +501,7 @@
         let currentRating = 0;
         let isExpanded = false; // State for "See More"
 
-        // HARDCODED REVIEWS (Featured at Top)
+        // HARDCODED REVIEWS (Featured at Bottom as requested)
         const hardcodedReviews = [
             {
                 name: "Adnan & Fatima",
@@ -433,26 +519,57 @@
             }
         ];
         
-        // --- CLEANUP DUPLICATES ON LOAD ---
+        // --- STRICT SPAM CHECK & CLEANER ---
+        
+        function isValidName(text) {
+            // Must be letters only (no numbers like '4yu5'), allow spaces/dots. Min 3 chars.
+            const nameRegex = /^[a-zA-Z\s\.]+$/;
+            // Check for repeated characters > 2 times (e.g. "aaaan")
+            const noRepeat = !/(.)\1{2,}/.test(text);
+            return nameRegex.test(text) && text.trim().length >= 3 && noRepeat;
+        }
+
+        function isValidMessage(text) {
+            // 1. Min length 4 chars
+            if (text.length < 4) return false;
+            // 2. Min word count (1 word)
+            const wordCount = text.trim().split(/\s+/).length;
+            if (wordCount < 1) return false;
+            
+            // 3. DICTIONARY CHECK (Heuristic): 
+            // a) Must contain at least one vowel (English words have vowels)
+            if (!/[aeiouyAEIOUY]/.test(text)) return false;
+            // b) No consonant clusters > 5 (e.g. "bcdfgh" is spam)
+            if (/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{6,}/.test(text)) return false;
+            
+            // 4. No repeating chars > 3 times
+            if (/(.)\1{3,}/.test(text)) return false;
+
+            return true;
+        }
+
         function cleanLocalStorage() {
             let storedReviews = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
-            const uniqueMap = new Map();
             
-            storedReviews.forEach(review => {
-                // Create a unique key based on Name + Text (ignoring case)
+            // Filter 1: Remove Bad Spam (Regex Check)
+            let validReviews = storedReviews.filter(review => {
+                return isValidName(review.name) && isValidMessage(review.text);
+            });
+
+            // Filter 2: Remove Duplicates (Name + Text match)
+            const uniqueMap = new Map();
+            validReviews.forEach(review => {
                 const key = `${review.name.toLowerCase()}|${review.text.toLowerCase()}`;
                 if (!uniqueMap.has(key)) {
                     uniqueMap.set(key, review);
                 }
             });
-            
-            // Convert map back to array
             const cleanedReviews = Array.from(uniqueMap.values());
             
-            // Only update local storage if duplicates were found/removed
+            // Update Storage if cleanup happened
             if (cleanedReviews.length !== storedReviews.length) {
                 localStorage.setItem('haroon_reviews', JSON.stringify(cleanedReviews));
-                console.log("Duplicates cleaned from local storage.");
+                console.log("Spam and duplicates cleaned from local storage.");
             }
         }
 
@@ -471,17 +588,6 @@
             }
         }
 
-        function isValidName(text) {
-            const nameRegex = /^[a-zA-Z\s]+$/;
-            return nameRegex.test(text) && text.trim().length >= 3;
-        }
-
-        function isValidMessage(text) {
-             if (!/[aeiouyAEIOUY]/.test(text)) return false;
-             const wordCount = text.trim().split(/\s+/).length;
-             return wordCount >= 3;
-        }
-
         function isSpamOrInvalidOtherEvent(text) {
             if (text.length < 3) return true;
             if (/(.)\1{3,}/.test(text)) return true;
@@ -493,9 +599,8 @@
 
         function createReviewCard(review, index) {
             const newCard = document.createElement('div');
-            // Added 'review-card' class for referencing later
             newCard.className = "review-card bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal active relative";
-            newCard.setAttribute('data-index', index); // Track index for visibility logic
+            newCard.setAttribute('data-index', index);
 
             let starsHtml = "";
             for(let i=0; i<review.rating; i++) starsHtml += "★";
@@ -517,7 +622,6 @@
             return newCard;
         }
 
-        // --- UPDATED LOADING & VISIBILITY LOGIC ---
         function loadReviews() {
             cleanLocalStorage(); // Run clean up first
             
@@ -526,14 +630,12 @@
 
             const storedReviews = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
             
-            // Sort Stored Reviews by Date (Newest First) if possible, or just reverse the array
-            // Assuming newer ones were pushed to the end, reverse makes them appear first
+            // Sort: Newest User Reviews First
             const sortedStoredReviews = storedReviews.reverse();
 
-            // Combine: Hardcoded (Featured) + User Reviews (Newest First)
-            const allReviews = [...hardcodedReviews, ...sortedStoredReviews];
+            // Order: User Reviews (Top) -> Hardcoded (Bottom)
+            const allReviews = [...sortedStoredReviews, ...hardcodedReviews];
 
-            // Render ALL reviews
             allReviews.forEach((review, index) => {
                 const card = createReviewCard(review, index);
                 grid.appendChild(card);
@@ -563,7 +665,6 @@
                 }
             });
 
-            // Toggle Button Visibility
             if (hiddenCount > 0 && !isExpanded) {
                 seeMoreContainer.classList.remove('hidden');
             } else {
@@ -576,7 +677,6 @@
             updateVisibility();
         }
 
-        // Update visibility on resize
         window.addEventListener('resize', updateVisibility);
 
         // --- GOLD SHOWER (4s) ---
@@ -647,8 +747,9 @@
             let eventType = document.getElementById('review-event-type').value;
             const otherInput = document.getElementById('other-event-input');
 
+            // --- STRICT VALIDATION ON SUBMIT ---
             if (!isValidName(name)) {
-                 alert("Please enter a valid Name (e.g., First Last). No numbers or symbols allowed.");
+                 alert("Please enter a valid Name (Letters only, min 3 chars). No numbers or symbols.");
                  document.getElementById('review-name').focus();
                  submitBtn.disabled = false;
                  submitBtn.innerHTML = originalBtnText;
@@ -656,7 +757,7 @@
             }
 
             if (!isValidMessage(message)) {
-                 alert("Please enter a valid review message (minimum 3 words).");
+                 alert("Please enter a valid review (min 1 word, 4 chars). No gibberish.");
                  document.getElementById('review-message').focus();
                  submitBtn.disabled = false;
                  submitBtn.innerHTML = originalBtnText;
@@ -701,9 +802,7 @@
                     document.getElementById('rating-text').innerText = "";
                     document.getElementById('review-form').classList.add('hidden');
                     
-                    // Change button text permanently for this session
                     submitBtn.innerHTML = "Thank you for the feedback...";
-                    // Do NOT re-enable the button
                 } else {
                     throw new Error('Form submission failed');
                 }
@@ -714,7 +813,6 @@
                 submitBtn.innerHTML = originalBtnText;
             });
 
-            // Local Update (Optimistic)
             if (currentRating >= 4) {
                 const now = new Date();
                 const timeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
