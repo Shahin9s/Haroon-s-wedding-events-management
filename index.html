@@ -75,20 +75,39 @@
             border-radius: 2px;
             animation: fall linear forwards;
         }
+
+        /* --- CORNER POP EMOJIS --- */
+        @keyframes gentleBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .corner-pop {
+            position: fixed;
+            bottom: 20px;
+            font-size: 3rem;
+            z-index: 9998;
+            pointer-events: none;
+            animation: gentleBob 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+        .cp-left { left: 20px; animation-delay: 0s; }
+        .cp-right { right: 20px; animation-delay: 1.5s; }
+
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
+
+    <div class="corner-pop cp-left">🎉✨</div>
+    <div class="corner-pop cp-right">🍾🥂</div>
+
 
     <nav id="navbar" class="fixed w-full z-50 bg-dark py-4 text-white shadow-lg transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center">
                 
-                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="w-12 h-12 rounded-full border-2 border-gold bg-dark overflow-hidden flex items-center justify-center relative">
-                        <img src="SAVE_20230525_200707.jpg" 
-                             onerror="this.onerror=null; this.src='https://placehold.co/100x100/0f392b/C5A059?text=H'" 
-                             class="w-full h-full object-cover">
-                    </div>
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <img src="image_3.png" alt="Haroon's Logo" class="w-16 h-16 rounded-full border-2 border-gold object-cover transition-transform duration-300 group-hover:scale-110">
+                    
                     <div class="flex flex-col leading-tight">
                         <span class="text-xl font-serif font-bold tracking-wide">HAROON'S</span>
                         <span class="text-xs uppercase tracking-widest text-gold">Weddings & Events</span>
@@ -250,18 +269,7 @@
             </div>
 
             <div id="testimonials-grid" class="grid md:grid-cols-3 gap-8 mb-16">
-                <div class="bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal relative">
-                    <div class="flex gap-1 mb-4 text-gold">★★★★★</div>
-                    <p class="text-gray-300 italic mb-6">"Haroon's made our dream wedding a reality. The stage decoration was breathtaking and exactly what we imagined!"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-gold font-bold">A</div>
-                        <div>
-                            <h4 class="font-bold text-white text-sm">Adnan & Fatima</h4>
-                            <span class="text-xs text-gold uppercase tracking-wider block mt-1">Wedding</span>
-                        </div>
-                    </div>
                 </div>
-            </div>
 
             <div class="max-w-2xl mx-auto text-center reveal">
                 <div class="bg-white/5 p-8 rounded-3xl border border-gold/30 backdrop-blur-sm shadow-2xl">
@@ -285,7 +293,7 @@
                         <input type="hidden" name="from_name" value="Wedding Site Feedback">
 
                         <div class="relative">
-                            <input type="text" name="name" id="review-name" required placeholder="Your Name" class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold">
+                            <input type="text" name="name" id="review-name" required placeholder="Your Name (e.g. John Doe)" class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold">
                         </div>
 
                         <div class="relative">
@@ -305,7 +313,7 @@
                             <input type="text" id="other-event-input" placeholder="Type your specific event..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold border-l-4 border-l-gold">
                         </div>
                         
-                        <textarea name="message" id="review-message" required rows="3" placeholder="Tell us about your event experience..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold resize-none"></textarea>
+                        <textarea name="message" id="review-message" required rows="3" placeholder="Tell us about your event experience (min 3 words)..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold resize-none"></textarea>
                         
                         <button type="submit" class="bg-gold px-8 py-3 rounded-full font-bold hover:bg-yellow-600 transition w-full flex items-center justify-center gap-2 shadow-lg">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2z"/></svg>
@@ -409,7 +417,7 @@
                 
                 <div class="space-y-6">
                     <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-full border border-gold flex items-center justify-center text-gold font-serif text-xl">H</div>
+                        <img src="image_3.png" alt="Haroon's Logo" class="w-12 h-12 rounded-full border border-gold object-cover">
                         <div>
                             <h3 class="text-2xl font-serif font-bold text-white tracking-wide">HAROON'S</h3>
                             <p class="text-[10px] text-gold uppercase tracking-[0.3em]">Weddings & Events</p>
@@ -501,6 +509,24 @@
 
         // --- 4. Review System ---
         let currentRating = 0;
+
+        // HARDCODED REVIEWS (Always appear at top)
+        const hardcodedReviews = [
+            {
+                name: "Adnan & Fatima",
+                text: "Haroon's made our dream wedding a reality. The stage decoration was breathtaking and exactly what we imagined!",
+                rating: 5,
+                eventType: "Wedding",
+                time: "10/28/2023 02:30 PM" // Added fake historical timestamp
+            },
+             {
+                name: "TechSolutions Pvt Ltd",
+                text: "Professional, punctual, and perfect execution. The annual meet was handled flawlessly. Highly recommended.",
+                rating: 5,
+                eventType: "Corporate Event",
+                time: "11/15/2023 10:00 AM"
+            }
+        ];
         
         function toggleOtherInput(selectElement) {
             const container = document.getElementById('other-event-container');
@@ -517,13 +543,28 @@
             }
         }
 
-        function isSpamOrInvalid(text) {
+        // --- UPDATED SPAM VALIDATION FUNCTIONS ---
+        function isValidName(text) {
+            // Must only contain letters and spaces, and be at least 3 chars long. No numbers.
+            const nameRegex = /^[a-zA-Z\s]+$/;
+            return nameRegex.test(text) && text.trim().length >= 3;
+        }
+
+        function isValidMessage(text) {
+             // Must have vowels (prevents keyboard smash like "zzzz")
+             if (!/[aeiouyAEIOUY]/.test(text)) return false;
+             // Must have at least 3 words (prevents one-word spam)
+             const wordCount = text.trim().split(/\s+/).length;
+             return wordCount >= 3;
+        }
+
+        function isSpamOrInvalidOtherEvent(text) {
+             // Existing checks for the "Other" field
             if (text.length < 3) return true;
-            if (/(.)\1{3,}/.test(text)) return true;
-            if (/^\d+$/.test(text)) return true;
-            if (!/[aeiouyAEIOUY]/.test(text)) return true;
+            if (/(.)\1{3,}/.test(text)) return true; // repeating chars
+            if (/^\d+$/.test(text)) return true; // only numbers
             const allowedPattern = /^[a-zA-Z0-9\s\-\']+$/;
-            if (!allowedPattern.test(text)) return true;
+            if (!allowedPattern.test(text)) return true; // weird symbols
             return false;
         }
 
@@ -551,46 +592,51 @@
             return newCard;
         }
 
+        // UPDATED loadReviews to prioritize hardcoded ones
         function loadReviews() {
             const grid = document.getElementById('testimonials-grid');
+            grid.innerHTML = ''; // Clear existing content
+
+            // 1. Load Hardcoded Reviews First
+            hardcodedReviews.forEach(review => {
+                 const card = createReviewCard(review.name, review.text, review.rating, review.eventType, review.time);
+                 grid.appendChild(card);
+            });
+
+            // 2. Load Local Storage Reviews Second
             const storedReviews = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
-            storedReviews.forEach(review => {
-                if(review.rating >= 4) {
-                    const card = createReviewCard(review.name, review.text, review.rating, review.eventType, review.time);
-                    grid.insertBefore(card, grid.firstChild);
-                }
+            // Filter out old spam/button smashed reviews based on new rules before displaying
+            const validStoredReviews = storedReviews.filter(review => 
+                review.rating >= 4 && isValidName(review.name) && isValidMessage(review.text)
+            );
+
+            validStoredReviews.forEach(review => {
+                const card = createReviewCard(review.name, review.text, review.rating, review.eventType, review.time);
+                grid.appendChild(card); // Append to end
             });
         }
 
-        // --- NEW FEATURE: GOLD SHOWER EFFECT ---
+        // --- UPDATED GOLD SHOWER (TRIPLE QUANTITY & DURATION) ---
         function triggerGoldShower() {
             const colors = ['#C5A059', '#FFD700', '#DAA520', '#F0E68C'];
             
-            // Spawn 60 particles
-            for (let i = 0; i < 60; i++) {
+            // Spawn 180 particles (Triple quantity)
+            for (let i = 0; i < 180; i++) {
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
-                
-                // Randomly position across the screen width
                 confetti.style.left = Math.random() * 100 + 'vw';
-                
-                // Randomize fall speed (2s to 4s)
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                
-                // Randomize color
+                // Longer fall speed for triple duration look
+                confetti.style.animationDuration = (Math.random() * 5 + 5) + 's'; 
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                
-                // Randomize size (4px to 10px)
                 confetti.style.width = (Math.random() * 6 + 4) + 'px';
-                confetti.style.height = confetti.style.width; // make them squares
+                confetti.style.height = confetti.style.width;
                 
-                // Add to body
                 document.body.appendChild(confetti);
                 
-                // Cleanup after animation finishes (4000ms)
+                // Cleanup after animation finishes (12000ms = 12s = Triple duration)
                 setTimeout(() => {
                     confetti.remove();
-                }, 4000);
+                }, 12000);
             }
         }
 
@@ -622,7 +668,6 @@
             highlightStars(n);
             document.getElementById('rating-text').innerText = `You selected ${n} star${n > 1 ? 's' : ''}`;
 
-            // --- TRIGGER EFFECT IF 5 STARS ---
             if (n === 5) {
                 triggerGoldShower();
             }
@@ -635,22 +680,33 @@
             const formData = new FormData(reviewForm);
             const name = formData.get('name');
             const message = formData.get('message');
-            
             let eventType = document.getElementById('review-event-type').value;
             const otherInput = document.getElementById('other-event-input');
 
+            // --- NEW SPAM CHECKS ---
+            if (!isValidName(name)) {
+                 alert("Please enter a valid Name (e.g., First Last). No numbers or symbols allowed.");
+                 document.getElementById('review-name').focus();
+                 return;
+            }
+
+            if (!isValidMessage(message)) {
+                 alert("Please enter a valid review message (minimum 3 words).");
+                 document.getElementById('review-message').focus();
+                 return;
+            }
+
             if (eventType === "Other") {
                 const typedEvent = otherInput.value.trim();
-                
-                if (isSpamOrInvalid(typedEvent)) {
+                if (isSpamOrInvalidOtherEvent(typedEvent)) {
                     alert("Please enter a valid Event Name. Avoid symbols or random letters.");
                     otherInput.focus();
                     return; 
                 }
-
                 eventType = typedEvent;
                 formData.set('event_type', eventType);
             }
+            // -----------------------
 
             const existing = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
             const isDuplicate = existing.some(review => 
@@ -695,9 +751,8 @@
                 existing.push(newReviewObj);
                 localStorage.setItem('haroon_reviews', JSON.stringify(existing));
 
-                const card = createReviewCard(name, message, currentRating, eventType, timeString);
-                const grid = document.getElementById('testimonials-grid');
-                grid.insertBefore(card, grid.firstChild);
+                // Reload reviews to ensure correct ordering (Hardcoded first, then new local one)
+                loadReviews(); 
             }
         });
 
