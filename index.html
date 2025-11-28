@@ -230,39 +230,42 @@
             </div>
 
             <div id="testimonials-grid" class="grid md:grid-cols-3 gap-8 mb-16">
-                <div class="bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal">
+                <div class="bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal relative">
                     <div class="flex gap-1 mb-4 text-gold">★★★★★</div>
                     <p class="text-gray-300 italic mb-6">"Haroon's made our dream wedding a reality. The stage decoration was breathtaking and exactly what we imagined!"</p>
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-gold font-bold">A</div>
                         <div>
                             <h4 class="font-bold text-white text-sm">Adnan & Fatima</h4>
-                            <span class="text-xs text-gold uppercase tracking-wider">Wedding</span>
+                            <span class="text-xs text-gold uppercase tracking-wider block mt-1">Wedding</span>
                         </div>
                     </div>
                 </div>
-                <div class="bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal" style="transition-delay: 150ms">
+
+                <div class="bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal relative" style="transition-delay: 150ms">
                     <div class="flex gap-1 mb-4 text-gold">★★★★★</div>
                     <p class="text-gray-300 italic mb-6">"Professional, punctual, and perfect execution. The annual meet was handled flawlessly. Highly recommended."</p>
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-gold font-bold">T</div>
                         <div>
                             <h4 class="font-bold text-white text-sm">TechSolutions Pvt Ltd</h4>
-                            <span class="text-xs text-gold uppercase tracking-wider">Corporate Event</span>
+                            <span class="text-xs text-gold uppercase tracking-wider block mt-1">Corporate Event</span>
                         </div>
                     </div>
                 </div>
-                <div class="bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal" style="transition-delay: 300ms">
+
+                <div class="bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal relative" style="transition-delay: 300ms">
                     <div class="flex gap-1 mb-4 text-gold">★★★★★</div>
                     <p class="text-gray-300 italic mb-6">"My daughter's 5th birthday was magical thanks to the team. The decor and food were just amazing."</p>
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-gold font-bold">R</div>
                         <div>
                             <h4 class="font-bold text-white text-sm">Riya's Parents</h4>
-                            <span class="text-xs text-gold uppercase tracking-wider">Birthday Party</span>
+                            <span class="text-xs text-gold uppercase tracking-wider block mt-1">Birthday Party</span>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div class="max-w-2xl mx-auto text-center reveal">
@@ -280,19 +283,30 @@
 
                     <div id="rating-text" class="text-gold font-medium mb-4 h-6"></div>
 
-                    <form id="review-form" action="https://api.web3forms.com/submit" method="POST" class="hidden space-y-4 animate-fade-in-up">
+                    <form id="review-form" class="hidden space-y-4 animate-fade-in-up">
                         
                         <input type="hidden" name="access_key" value="808f96c3-d713-4d21-b264-5622d3be4efd">
-
                         <input type="hidden" name="subject" value="New Review for Haroon's Events">
                         <input type="hidden" name="from_name" value="Wedding Site Feedback">
-                        <input type="hidden" name="redirect" value="https://shahin9s.github.io/Haroon-s-wedding-events-management/">
 
                         <div class="relative">
-                            <input type="text" name="name" required placeholder="Your Name" class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold">
+                            <input type="text" name="name" id="review-name" required placeholder="Your Name" class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold">
+                        </div>
+
+                        <div class="relative">
+                             <select name="event_type" id="review-event-type" required class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white focus:outline-none focus:border-gold appearance-none cursor-pointer">
+                                 <option value="" disabled selected class="text-gray-500">Select Event Type</option>
+                                 <option value="Wedding" class="bg-dark text-white">Wedding</option>
+                                 <option value="Corporate Event" class="bg-dark text-white">Corporate Event</option>
+                                 <option value="Birthday Party" class="bg-dark text-white">Birthday Party</option>
+                                 <option value="Other" class="bg-dark text-white">Other</option>
+                             </select>
+                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                             </div>
                         </div>
                         
-                        <textarea name="message" required rows="3" placeholder="Tell us about your event experience..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold resize-none"></textarea>
+                        <textarea name="message" id="review-message" required rows="3" placeholder="Tell us about your event experience..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold resize-none"></textarea>
                         
                         <button type="submit" class="bg-gold px-8 py-3 rounded-full font-bold hover:bg-yellow-600 transition w-full flex items-center justify-center gap-2 shadow-lg">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2z"/></svg>
@@ -489,10 +503,10 @@
         // --- 4. Review System Visuals ---
         let currentRating = 0;
         
-        // --- 4a. Helper: Create HTML for a single review card (For existing local data) ---
-        function createReviewCard(name, text, rating) {
+        // --- 4a. Helper: Create HTML for a single review card (Updated with Event Type & Time) ---
+        function createReviewCard(name, text, rating, eventType = "Happy Customer", time = "") {
             const newCard = document.createElement('div');
-            newCard.className = "bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal active";
+            newCard.className = "bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal active relative";
             
             let starsHtml = "";
             for(let i=0; i<rating; i++) starsHtml += "★";
@@ -504,21 +518,28 @@
                     <div class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-gold font-bold border border-gold/30">${name.charAt(0).toUpperCase()}</div>
                     <div>
                         <h4 class="font-bold text-white text-sm">${name}</h4>
-                        <span class="text-xs text-gold uppercase tracking-wider">Recent Customer</span>
+                        <span class="text-xs text-gold uppercase tracking-wider block mt-1">${eventType}</span>
                     </div>
+                </div>
+                <div class="absolute bottom-4 right-4 text-[10px] text-gray-500 font-mono opacity-60">
+                    ${time}
                 </div>
             `;
             return newCard;
         }
 
-        // --- 4b. Load Old Reviews (Optional Display Only) ---
+        // --- 4b. Load Old Reviews ---
         function loadReviews() {
             const grid = document.getElementById('testimonials-grid');
+            // Get reviews from local storage
             const storedReviews = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
             
+            // Loop through stored reviews and display them if they are >= 4 stars
             storedReviews.forEach(review => {
-                const card = createReviewCard(review.name, review.text, review.rating);
-                grid.insertBefore(card, grid.firstChild);
+                if(review.rating >= 4) {
+                    const card = createReviewCard(review.name, review.text, review.rating, review.eventType, review.time);
+                    grid.insertBefore(card, grid.firstChild); // Insert recent ones at top
+                }
             });
         }
 
@@ -547,6 +568,61 @@
             
             document.getElementById('rating-text').innerText = `You selected ${n} star${n > 1 ? 's' : ''}`;
         }
+
+        // --- 4d. Handle Form Submission (Intercept & Store) ---
+        const reviewForm = document.getElementById('review-form');
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop default refresh
+
+            const formData = new FormData(reviewForm);
+            const name = formData.get('name');
+            const message = formData.get('message');
+            const eventType = document.getElementById('review-event-type').value;
+
+            // 1. Submit to Web3Forms in background
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if(response.ok) {
+                    // Success handling
+                    alert("Thank you for your review!");
+                    reviewForm.reset();
+                    setRating(0); // Reset stars
+                    document.getElementById('rating-text').innerText = "";
+                    document.getElementById('review-form').classList.add('hidden');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert("Something went wrong, but we recorded your local feedback!");
+            });
+
+            // 2. Logic: Only show recent feedback if 4 stars or above
+            if (currentRating >= 4) {
+                // Get Current Time
+                const now = new Date();
+                const timeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+                const newReviewObj = {
+                    name: name,
+                    text: message,
+                    rating: currentRating,
+                    eventType: eventType,
+                    time: timeString
+                };
+
+                // Save to Local Storage
+                const existing = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
+                existing.push(newReviewObj);
+                localStorage.setItem('haroon_reviews', JSON.stringify(existing));
+
+                // Add to Grid immediately
+                const card = createReviewCard(name, message, currentRating, eventType, timeString);
+                const grid = document.getElementById('testimonials-grid');
+                grid.insertBefore(card, grid.firstChild);
+            }
+        });
+
 
         // --- 5. Scroll Animations Trigger ---
         const observer = new IntersectionObserver((entries) => {
