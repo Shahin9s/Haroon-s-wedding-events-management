@@ -629,6 +629,8 @@
             }
             highlightStars(n);
             document.getElementById('rating-text').innerText = `You selected ${n} star${n > 1 ? 's' : ''}`;
+            // ADDED MISSING TRIGGER HERE
+            if (n === 5) triggerGoldShower(); 
         }
         function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
         function scrollToId(id) { const el = document.getElementById(id); if(el) { el.scrollIntoView({ behavior: 'smooth' }); document.getElementById('mobile-menu').classList.add('hidden'); } }
@@ -638,7 +640,13 @@
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
         // INITIALIZE
-        fetchReviews();
+        // Check if user set the URL, otherwise just load hardcoded
+        if(GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) {
+            console.log("Global DB not set up. Loading local only.");
+            loadReviews();
+        } else {
+            fetchReviews();
+        }
     </script>
 </body>
 </html>
