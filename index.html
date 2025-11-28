@@ -57,6 +57,24 @@
         .star-pop svg {
             animation: pop 0.3s ease-out;
         }
+        
+        /* Utility for hidden elements */
+        .hidden { display: none; }
+
+        /* --- GOLD SHOWER CONFETTI CSS --- */
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .confetti {
+            position: fixed;
+            top: -10px;
+            z-index: 9999; /* High Z-index to be on top */
+            pointer-events: none; /* KEY: Allows clicking THROUGH the confetti */
+            opacity: 0.9;
+            border-radius: 2px;
+            animation: fall linear forwards;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -240,41 +258,7 @@
                             <span class="text-xs text-gold uppercase tracking-wider block mt-1">Wedding</span>
                         </div>
                     </div>
-                    <div class="absolute bottom-4 right-4 text-[10px] text-gray-500 font-mono opacity-60">
-                        10/28/2025 02:30 PM
-                    </div>
                 </div>
-
-                <div class="bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal relative" style="transition-delay: 150ms">
-                    <div class="flex gap-1 mb-4 text-gold">★★★★★</div>
-                    <p class="text-gray-300 italic mb-6">"Professional, punctual, and perfect execution. The annual meet was handled flawlessly. Highly recommended."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-gold font-bold">T</div>
-                        <div>
-                            <h4 class="font-bold text-white text-sm">TechSolutions Pvt Ltd</h4>
-                            <span class="text-xs text-gold uppercase tracking-wider block mt-1">Corporate Event</span>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-4 right-4 text-[10px] text-gray-500 font-mono opacity-60">
-                        11/02/2025 11:15 AM
-                    </div>
-                </div>
-
-                <div class="bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal relative" style="transition-delay: 300ms">
-                    <div class="flex gap-1 mb-4 text-gold">★★★★★</div>
-                    <p class="text-gray-300 italic mb-6">"My daughter's 5th birthday was magical thanks to the team. The decor and food were just amazing."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-gold font-bold">R</div>
-                        <div>
-                            <h4 class="font-bold text-white text-sm">Riya's Parents</h4>
-                            <span class="text-xs text-gold uppercase tracking-wider block mt-1">Birthday Party</span>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-4 right-4 text-[10px] text-gray-500 font-mono opacity-60">
-                        11/15/2025 06:45 PM
-                    </div>
-                </div>
-
             </div>
 
             <div class="max-w-2xl mx-auto text-center reveal">
@@ -303,16 +287,20 @@
                         </div>
 
                         <div class="relative">
-                             <select name="event_type" id="review-event-type" required class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white focus:outline-none focus:border-gold appearance-none cursor-pointer">
+                             <select name="event_type" id="review-event-type" required onchange="toggleOtherInput(this)" class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white focus:outline-none focus:border-gold appearance-none cursor-pointer">
                                  <option value="" disabled selected class="text-gray-500">Select Event Type</option>
                                  <option value="Wedding" class="bg-dark text-white">Wedding</option>
                                  <option value="Corporate Event" class="bg-dark text-white">Corporate Event</option>
                                  <option value="Birthday Party" class="bg-dark text-white">Birthday Party</option>
-                                 <option value="Other" class="bg-dark text-white">Other</option>
+                                 <option value="Other" class="bg-dark text-white">Other (Please Specify)</option>
                              </select>
                              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                              </div>
+                        </div>
+
+                        <div id="other-event-container" class="hidden relative animate-fade-in-up">
+                            <input type="text" id="other-event-input" placeholder="Type your specific event..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold border-l-4 border-l-gold">
                         </div>
                         
                         <textarea name="message" id="review-message" required rows="3" placeholder="Tell us about your event experience..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold resize-none"></textarea>
@@ -509,10 +497,34 @@
             window.open(`https://wa.me/919037874001?text=${text}`, '_blank');
         }
 
-        // --- 4. Review System Visuals ---
+        // --- 4. Review System ---
         let currentRating = 0;
         
-        // --- 4a. Helper: Create HTML for a single review card ---
+        function toggleOtherInput(selectElement) {
+            const container = document.getElementById('other-event-container');
+            const input = document.getElementById('other-event-input');
+            
+            if (selectElement.value === "Other") {
+                container.classList.remove('hidden');
+                input.required = true;
+                input.focus();
+            } else {
+                container.classList.add('hidden');
+                input.required = false;
+                input.value = "";
+            }
+        }
+
+        function isSpamOrInvalid(text) {
+            if (text.length < 3) return true;
+            if (/(.)\1{3,}/.test(text)) return true;
+            if (/^\d+$/.test(text)) return true;
+            if (!/[aeiouyAEIOUY]/.test(text)) return true;
+            const allowedPattern = /^[a-zA-Z0-9\s\-\']+$/;
+            if (!allowedPattern.test(text)) return true;
+            return false;
+        }
+
         function createReviewCard(name, text, rating, eventType = "Happy Customer", time = "") {
             const newCard = document.createElement('div');
             newCard.className = "bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal active relative";
@@ -537,23 +549,49 @@
             return newCard;
         }
 
-        // --- 4b. Load Old Reviews ---
         function loadReviews() {
             const grid = document.getElementById('testimonials-grid');
-            // Get reviews from local storage
             const storedReviews = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
-            
-            // Loop through stored reviews and display them if they are >= 4 stars
             storedReviews.forEach(review => {
                 if(review.rating >= 4) {
                     const card = createReviewCard(review.name, review.text, review.rating, review.eventType, review.time);
-                    grid.insertBefore(card, grid.firstChild); // Insert recent ones at top
+                    grid.insertBefore(card, grid.firstChild);
                 }
             });
         }
 
-        // --- 4c. Star Rating Visuals ---
-        // Helper function to color the stars based on a number
+        // --- NEW FEATURE: GOLD SHOWER EFFECT ---
+        function triggerGoldShower() {
+            const colors = ['#C5A059', '#FFD700', '#DAA520', '#F0E68C'];
+            
+            // Spawn 60 particles
+            for (let i = 0; i < 60; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Randomly position across the screen width
+                confetti.style.left = Math.random() * 100 + 'vw';
+                
+                // Randomize fall speed (2s to 4s)
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                
+                // Randomize color
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Randomize size (4px to 10px)
+                confetti.style.width = (Math.random() * 6 + 4) + 'px';
+                confetti.style.height = confetti.style.width; // make them squares
+                
+                // Add to body
+                document.body.appendChild(confetti);
+                
+                // Cleanup after animation finishes (4000ms)
+                setTimeout(() => {
+                    confetti.remove();
+                }, 4000);
+            }
+        }
+
         function highlightStars(n) {
             for (let i = 1; i <= 5; i++) {
                 const starSvg = document.getElementById(`star-${i}`);
@@ -572,7 +610,6 @@
             document.getElementById('review-form').classList.remove('hidden');
             document.getElementById('review-form').classList.add('animate-fade-in-up');
             
-            // Add pop animation (and reset logic so it plays again if clicked multiple times)
             for (let i = 1; i <= 5; i++) {
                 const starBtn = document.querySelector(`button[onclick="setRating(${i})"]`);
                 starBtn.classList.remove('star-pop');
@@ -580,26 +617,40 @@
                 starBtn.classList.add('star-pop');
             }
 
-            // Permanently set the color for this click
             highlightStars(n);
-            
             document.getElementById('rating-text').innerText = `You selected ${n} star${n > 1 ? 's' : ''}`;
+
+            // --- TRIGGER EFFECT IF 5 STARS ---
+            if (n === 5) {
+                triggerGoldShower();
+            }
         }
 
-        // --- 4d. Handle Form Submission (Intercept & Store) ---
         const reviewForm = document.getElementById('review-form');
         reviewForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop default refresh
+            e.preventDefault();
 
             const formData = new FormData(reviewForm);
             const name = formData.get('name');
             const message = formData.get('message');
-            const eventType = document.getElementById('review-event-type').value;
-
-            // --- CHECK DUPLICATES ---
-            const existing = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
             
-            // Check if there is already a review with the SAME NAME and SAME MESSAGE
+            let eventType = document.getElementById('review-event-type').value;
+            const otherInput = document.getElementById('other-event-input');
+
+            if (eventType === "Other") {
+                const typedEvent = otherInput.value.trim();
+                
+                if (isSpamOrInvalid(typedEvent)) {
+                    alert("Please enter a valid Event Name. Avoid symbols or random letters.");
+                    otherInput.focus();
+                    return; 
+                }
+
+                eventType = typedEvent;
+                formData.set('event_type', eventType);
+            }
+
+            const existing = JSON.parse(localStorage.getItem('haroon_reviews') || '[]');
             const isDuplicate = existing.some(review => 
                 review.name.toLowerCase() === name.toLowerCase() && 
                 review.text.toLowerCase() === message.toLowerCase()
@@ -607,20 +658,18 @@
 
             if (isDuplicate) {
                 alert("You have already submitted this review.");
-                return; // Stop execution, do not submit to server or local storage
+                return;
             }
-            // ------------------------
 
-            // 1. Submit to Web3Forms in background
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 body: formData
             }).then(response => {
                 if(response.ok) {
-                    // Success handling
                     alert("Thank you for your review!");
                     reviewForm.reset();
-                    setRating(0); // Reset stars
+                    setRating(0);
+                    document.getElementById('other-event-container').classList.add('hidden');
                     document.getElementById('rating-text').innerText = "";
                     document.getElementById('review-form').classList.add('hidden');
                 }
@@ -629,9 +678,7 @@
                 alert("Something went wrong, but we recorded your local feedback!");
             });
 
-            // 2. Logic: Only show recent feedback if 4 stars or above
             if (currentRating >= 4) {
-                // Get Current Time
                 const now = new Date();
                 const timeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
@@ -643,19 +690,15 @@
                     time: timeString
                 };
 
-                // Save to Local Storage
                 existing.push(newReviewObj);
                 localStorage.setItem('haroon_reviews', JSON.stringify(existing));
 
-                // Add to Grid immediately
                 const card = createReviewCard(name, message, currentRating, eventType, timeString);
                 const grid = document.getElementById('testimonials-grid');
                 grid.insertBefore(card, grid.firstChild);
             }
         });
 
-
-        // --- 5. Scroll Animations Trigger ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
@@ -668,7 +711,6 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // --- 6. Initialize ---
         loadReviews();
 
     </script>
