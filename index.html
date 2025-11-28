@@ -28,74 +28,29 @@
     </script>
     <style>
         html { scroll-behavior: smooth; }
-        
-        /* Scroll Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Star Hover Animation */
-        .star-btn svg {
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .star-btn:hover svg {
-            transform: scale(1.3); /* Make hover bigger */
-        }
-        
-        /* Star Click 'Pop' Animation */
-        @keyframes pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.5); }
-            100% { transform: scale(1); }
-        }
-        .star-pop svg {
-            animation: pop 0.3s ease-out;
-        }
-        
-        /* Utility for hidden elements */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .star-btn svg { transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .star-btn:hover svg { transform: scale(1.3); }
+        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.5); } 100% { transform: scale(1); } }
+        .star-pop svg { animation: pop 0.3s ease-out; }
         .hidden { display: none; }
-
-        /* --- GOLD SHOWER CONFETTI CSS --- */
-        @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+        .confetti { position: fixed; top: -10px; z-index: 9999; pointer-events: none; opacity: 0.9; border-radius: 2px; animation: fall linear forwards; }
+        #floating-see-less { z-index: 9998; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .loader { border: 3px solid #0f392b; border-radius: 50%; border-top: 3px solid #C5A059; width: 20px; height: 20px; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Dropdown Menu Styles */
+        .kebab-menu { position: absolute; top: 1rem; right: 1rem; cursor: pointer; z-index: 10; color: #C5A059; opacity: 0.7; transition: opacity 0.3s; }
+        .kebab-menu:hover { opacity: 1; }
+        .menu-dropdown { 
+            position: absolute; top: 2.5rem; right: 1rem; background: #0f392b; 
+            border: 1px solid #C5A059; border-radius: 0.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.3); 
+            z-index: 20; min-width: 120px; overflow: hidden;
         }
-        .confetti {
-            position: fixed;
-            top: -10px;
-            z-index: 9999; /* High Z-index to be on top */
-            pointer-events: none; /* KEY: Allows clicking THROUGH the confetti */
-            opacity: 0.9;
-            border-radius: 2px;
-            animation: fall linear forwards;
-        }
-
-        /* Floating See Less Button */
-        #floating-see-less {
-            z-index: 9998;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        /* Loader */
-        .loader {
-            border: 3px solid #0f392b;
-            border-radius: 50%;
-            border-top: 3px solid #C5A059;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        .menu-item { display: block; width: 100%; text-align: left; padding: 0.5rem 1rem; font-size: 0.875rem; color: white; transition: background 0.2s; }
+        .menu-item:hover { background: #1a4f3d; color: #C5A059; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -103,38 +58,21 @@
     <nav id="navbar" class="fixed w-full z-50 bg-dark py-4 text-white shadow-lg transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center">
-                
                 <div class="flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo(0,0)">
-                    <img src="logo.png" 
-                         alt="Haroon's Logo" 
-                         onerror="this.src='https://placehold.co/100x100/0f392b/C5A059?text=H'; this.onerror=null;"
-                         class="w-16 h-16 rounded-full border-2 border-gold object-cover transition-transform duration-300 group-hover:scale-110">
-                    
-                    <div class="flex flex-col leading-tight">
-                        <span class="text-xl font-serif font-bold tracking-wide">HAROON'S</span>
-                        <span class="text-xs uppercase tracking-widest text-gold">Weddings & Events</span>
-                    </div>
+                    <img src="logo.png" alt="Haroon's Logo" onerror="this.src='https://placehold.co/100x100/0f392b/C5A059?text=H'; this.onerror=null;" class="w-16 h-16 rounded-full border-2 border-gold object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="flex flex-col leading-tight"><span class="text-xl font-serif font-bold tracking-wide">HAROON'S</span><span class="text-xs uppercase tracking-widest text-gold">Weddings & Events</span></div>
                 </div>
-
                 <div class="hidden md:flex space-x-8 items-center">
                     <button onclick="scrollToId('home')" class="hover:text-gold transition text-sm font-medium uppercase tracking-wider">Home</button>
                     <button onclick="scrollToId('services')" class="hover:text-gold transition text-sm font-medium uppercase tracking-wider">Services</button>
                     <button onclick="scrollToId('gallery')" class="hover:text-gold transition text-sm font-medium uppercase tracking-wider">Gallery</button>
                     <button onclick="scrollToId('contact')" class="hover:text-gold transition text-sm font-medium uppercase tracking-wider">Contact</button>
                     <button onclick="scrollToId('socials')" class="hover:text-gold transition text-sm font-medium uppercase tracking-wider">Social Media</button>
-                    <button onclick="scrollToId('contact')" class="bg-gold text-white px-6 py-2.5 rounded-full font-medium hover:bg-yellow-600 transition shadow-lg hover:scale-105 transform">
-                        Enquiry
-                    </button>
+                    <button onclick="scrollToId('contact')" class="bg-gold text-white px-6 py-2.5 rounded-full font-medium hover:bg-yellow-600 transition shadow-lg hover:scale-105 transform">Enquiry</button>
                 </div>
-
-                <div class="md:hidden">
-                    <button onclick="toggleMenu()" class="text-white p-2">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-                    </button>
-                </div>
+                <div class="md:hidden"><button onclick="toggleMenu()" class="text-white p-2"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div>
             </div>
         </div>
-        
         <div id="mobile-menu" class="hidden bg-white text-dark absolute w-full top-full left-0 shadow-xl border-t">
             <div class="flex flex-col p-4 space-y-4 font-bold">
                 <button onclick="scrollToId('home')" class="text-left py-2 border-b border-gray-100">Home</button>
@@ -142,33 +80,20 @@
                 <button onclick="scrollToId('gallery')" class="text-left py-2 border-b border-gray-100">Gallery</button>
                 <button onclick="scrollToId('contact')" class="text-left py-2 border-b border-gray-100">Contact</button>
                 <button onclick="scrollToId('socials')" class="text-left py-2 border-b border-gray-100">Social Media</button>
-                
-                <button onclick="scrollToId('contact')" class="bg-gold text-white px-6 py-3 rounded-full font-medium hover:bg-yellow-600 transition shadow-lg text-center w-full mt-2">
-                    Enquiry
-                </button>
+                <button onclick="scrollToId('contact')" class="bg-gold text-white px-6 py-3 rounded-full font-medium hover:bg-yellow-600 transition shadow-lg text-center w-full mt-2">Enquiry</button>
             </div>
         </div>
     </nav>
 
     <section id="home" class="relative h-screen flex items-center justify-center bg-gray-900 overflow-hidden">
-        <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" 
-                 class="w-full h-full object-cover opacity-60"
-                 onerror="this.style.display='none'">
+        <div class="absolute inset-0"><img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover opacity-60" onerror="this.style.display='none'">
             <div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-black -z-10"></div>
         </div>
-        
         <div class="absolute inset-0 bg-dark/60"></div>
-
         <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16 text-white">
             <p class="text-gold tracking-[0.2em] mb-4 uppercase text-lg reveal">Since 1989</p>
-            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 reveal" style="transition-delay: 200ms">
-                We Plan Your <br>
-                <span class="text-gold italic">Dream Events</span>
-            </h1>
-            <p class="text-xl mb-10 max-w-2xl mx-auto text-gray-200 reveal" style="transition-delay: 400ms">
-                Premium wedding and event management services tailored to your unique style and vision.
-            </p>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 reveal" style="transition-delay: 200ms">We Plan Your <br><span class="text-gold italic">Dream Events</span></h1>
+            <p class="text-xl mb-10 max-w-2xl mx-auto text-gray-200 reveal" style="transition-delay: 400ms">Premium wedding and event management services tailored to your unique style and vision.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center reveal" style="transition-delay: 600ms">
                 <button onclick="scrollToId('contact')" class="bg-gold text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-600 transition shadow-lg hover:scale-105 transform">Start Planning</button>
                 <button onclick="scrollToId('gallery')" class="border-2 border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition hover:scale-105 transform">View Portfolio</button>
@@ -177,87 +102,15 @@
     </section>
 
     <section id="services" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-gold tracking-wider uppercase mb-2 font-medium">Our Expertise</h2>
-                <h3 class="text-4xl font-serif font-bold text-dark">Services We Offer</h3>
-                <div class="w-24 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 p-8 rounded-2xl hover:shadow-xl transition duration-300 hover:-translate-y-2 group border border-gray-100 reveal">
-                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-gold mb-6 shadow-sm group-hover:scale-110 transition">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                    </div>
-                    <h4 class="text-xl font-bold text-dark mb-3">Wedding Planning</h4>
-                    <p class="text-gray-600 leading-relaxed">From venue selection to the final vow, we craft your perfect fairytale wedding.</p>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-2xl hover:shadow-xl transition duration-300 hover:-translate-y-2 group border border-gray-100 reveal" style="transition-delay: 200ms">
-                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-gold mb-6 shadow-sm group-hover:scale-110 transition">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                    </div>
-                    <h4 class="text-xl font-bold text-dark mb-3">Corporate Events</h4>
-                    <p class="text-gray-600 leading-relaxed">Professional conferences, product launches, and company galas executed with precision.</p>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-2xl hover:shadow-xl transition duration-300 hover:-translate-y-2 group border border-gray-100 reveal" style="transition-delay: 400ms">
-                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-gold mb-6 shadow-sm group-hover:scale-110 transition">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-                    </div>
-                    <h4 class="text-xl font-bold text-dark mb-3">Social Gatherings</h4>
-                    <p class="text-gray-600 leading-relaxed">Birthdays, anniversaries, and reunions. We handle the logistics so you can enjoy.</p>
-                </div>
-            </div>
-        </div>
+       <div class="max-w-7xl mx-auto px-4"><div class="text-center mb-16 reveal"><h2 class="text-gold tracking-wider uppercase mb-2 font-medium">Our Expertise</h2><h3 class="text-4xl font-serif font-bold text-dark">Services We Offer</h3><div class="w-24 h-1 bg-gold mx-auto mt-4 rounded-full"></div></div><div class="grid md:grid-cols-3 gap-8"><div class="bg-gray-50 p-8 rounded-2xl hover:shadow-xl transition duration-300 hover:-translate-y-2 group border border-gray-100 reveal"><div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-gold mb-6 shadow-sm group-hover:scale-110 transition"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div><h4 class="text-xl font-bold text-dark mb-3">Wedding Planning</h4><p class="text-gray-600 leading-relaxed">From venue selection to the final vow, we craft your perfect fairytale wedding.</p></div><div class="bg-gray-50 p-8 rounded-2xl hover:shadow-xl transition duration-300 hover:-translate-y-2 group border border-gray-100 reveal" style="transition-delay: 200ms"><div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-gold mb-6 shadow-sm group-hover:scale-110 transition"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg></div><h4 class="text-xl font-bold text-dark mb-3">Corporate Events</h4><p class="text-gray-600 leading-relaxed">Professional conferences, product launches, and company galas executed with precision.</p></div><div class="bg-gray-50 p-8 rounded-2xl hover:shadow-xl transition duration-300 hover:-translate-y-2 group border border-gray-100 reveal" style="transition-delay: 400ms"><div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-gold mb-6 shadow-sm group-hover:scale-110 transition"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><h4 class="text-xl font-bold text-dark mb-3">Social Gatherings</h4><p class="text-gray-600 leading-relaxed">Birthdays, anniversaries, and reunions. We handle the logistics so you can enjoy.</p></div></div></div>
     </section>
 
     <section id="gallery" class="py-24 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-gold tracking-wider uppercase mb-2 font-medium">Our Portfolio</h2>
-                <h3 class="text-4xl font-serif font-bold text-dark">Recent Events</h3>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[600px]">
-                <div class="md:col-span-2 h-64 md:h-full rounded-2xl overflow-hidden relative group reveal">
-                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                    <div class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-dark/90 to-transparent w-full">
-                        <p class="text-gold font-bold uppercase text-sm">Wedding</p>
-                        <h4 class="text-white text-2xl font-bold">Royal Celebration</h4>
-                    </div>
-                </div>
-                <div class="grid grid-rows-2 gap-6 h-full">
-                    <div class="h-64 md:h-full rounded-2xl overflow-hidden relative group reveal" style="transition-delay: 200ms">
-                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                    </div>
-                    <div class="h-64 md:h-full rounded-2xl overflow-hidden relative group reveal" style="transition-delay: 400ms">
-                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="max-w-7xl mx-auto px-4"><div class="text-center mb-16 reveal"><h2 class="text-gold tracking-wider uppercase mb-2 font-medium">Our Portfolio</h2><h3 class="text-4xl font-serif font-bold text-dark">Recent Events</h3></div><div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[600px]"><div class="md:col-span-2 h-64 md:h-full rounded-2xl overflow-hidden relative group reveal"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110"><div class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-dark/90 to-transparent w-full"><p class="text-gold font-bold uppercase text-sm">Wedding</p><h4 class="text-white text-2xl font-bold">Royal Celebration</h4></div></div><div class="grid grid-rows-2 gap-6 h-full"><div class="h-64 md:h-full rounded-2xl overflow-hidden relative group reveal" style="transition-delay: 200ms"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110"></div><div class="h-64 md:h-full rounded-2xl overflow-hidden relative group reveal" style="transition-delay: 400ms"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110"></div></div></div></div>
     </section>
 
     <section class="bg-dark py-20 text-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div class="reveal">
-                    <div class="text-4xl md:text-5xl font-bold text-gold mb-2">10M+</div>
-                    <div class="text-gray-300 font-medium">Happy Guests</div>
-                </div>
-                <div class="reveal" style="transition-delay: 100ms">
-                    <div class="text-4xl md:text-5xl font-bold text-gold mb-2">1M+</div>
-                    <div class="text-gray-300 font-medium">Customers</div>
-                </div>
-                <div class="reveal" style="transition-delay: 200ms">
-                    <div class="text-4xl md:text-5xl font-bold text-gold mb-2">30+</div>
-                    <div class="text-gray-300 font-medium">Years</div>
-                </div>
-                <div class="reveal" style="transition-delay: 300ms">
-                    <div class="text-4xl md:text-5xl font-bold text-gold mb-2">50+</div>
-                    <div class="text-gray-300 font-medium">Awards</div>
-                </div>
-            </div>
-        </div>
+        <div class="max-w-7xl mx-auto px-4"><div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center"><div class="reveal"><div class="text-4xl md:text-5xl font-bold text-gold mb-2">10M+</div><div class="text-gray-300 font-medium">Happy Guests</div></div><div class="reveal" style="transition-delay: 100ms"><div class="text-4xl md:text-5xl font-bold text-gold mb-2">1M+</div><div class="text-gray-300 font-medium">Customers</div></div><div class="reveal" style="transition-delay: 200ms"><div class="text-4xl md:text-5xl font-bold text-gold mb-2">30+</div><div class="text-gray-300 font-medium">Years</div></div><div class="reveal" style="transition-delay: 300ms"><div class="text-4xl md:text-5xl font-bold text-gold mb-2">50+</div><div class="text-gray-300 font-medium">Awards</div></div></div></div>
     </section>
 
     <section class="py-24 bg-darker text-white border-t border-white/10 relative overflow-hidden">
@@ -286,8 +139,8 @@
 
             <div class="max-w-2xl mx-auto text-center reveal">
                 <div class="bg-white/5 p-8 rounded-3xl border border-gold/30 backdrop-blur-sm shadow-2xl">
-                    <h4 class="text-2xl font-serif font-bold text-white mb-2">How was your experience?</h4>
-                    <p class="text-gray-400 mb-8">Click a star to rate us and leave a review.</p>
+                    <h4 class="text-2xl font-serif font-bold text-white mb-2" id="form-title">How was your experience?</h4>
+                    <p class="text-gray-400 mb-8" id="form-subtitle">Click a star to rate us and leave a review.</p>
                     
                     <div class="flex justify-center gap-3 mb-8" id="star-container" onmouseleave="highlightStars(currentRating)">
                         <button onclick="setRating(1)" onmouseenter="highlightStars(1)" class="star-btn p-1 focus:outline-none"><svg id="star-1" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
@@ -300,10 +153,8 @@
                     <div id="rating-text" class="text-gold font-medium mb-4 h-6"></div>
 
                     <form id="review-form" class="hidden space-y-4 animate-fade-in-up">
-                        
-                        <input type="hidden" name="access_key" value="808f96c3-d713-4d21-b264-5622d3be4efd">
-                        <input type="hidden" name="subject" value="New Review for Haroon's Events">
-                        <input type="hidden" name="from_name" value="Wedding Site Feedback">
+                        <input type="hidden" name="action" id="form-action" value="create">
+                        <input type="hidden" name="edit_id" id="edit-id" value="">
 
                         <div class="relative">
                             <input type="text" name="name" id="review-name" required placeholder="Your Name (e.g. John Doe)" class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold">
@@ -328,10 +179,11 @@
                         
                         <textarea name="message" id="review-message" required rows="3" placeholder="Tell us about your event experience (min 1 word)..." class="w-full p-3 pl-4 rounded-xl bg-dark/50 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-gold resize-none"></textarea>
                         
-                        <button type="submit" class="bg-gold px-8 py-3 rounded-full font-bold hover:bg-yellow-600 transition w-full flex items-center justify-center gap-2 shadow-lg">
+                        <button type="submit" id="submit-btn" class="bg-gold px-8 py-3 rounded-full font-bold hover:bg-yellow-600 transition w-full flex items-center justify-center gap-2 shadow-lg">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2z"/></svg>
-                            Submit Review Now
+                            <span id="submit-text">Submit Review Now</span>
                         </button>
+                        <button type="button" id="cancel-edit-btn" onclick="cancelEdit()" class="hidden w-full text-gray-400 text-sm hover:text-white mt-2 underline">Cancel Edit</button>
                     </form>
                 </div>
             </div>
@@ -344,126 +196,51 @@
     </button>
 
     <footer id="socials" class="bg-[#0f392b] text-white pt-16 pb-8 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                
-                <div class="space-y-6">
-                    <div class="flex items-center gap-3">
-                        <img src="logo.png" 
-                             alt="Haroon's Logo" 
-                             onerror="this.src='https://placehold.co/100x100/0f392b/C5A059?text=H'; this.onerror=null;"
-                             class="w-12 h-12 rounded-full border border-gold object-cover">
-                        <div>
-                            <h3 class="text-2xl font-serif font-bold text-white tracking-wide">HAROON'S</h3>
-                            <p class="text-[10px] text-gold uppercase tracking-[0.3em]">Weddings & Events</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 text-sm leading-relaxed max-w-sm">
-                        Turning your special moments into lifelong memories. We provide full-service planning for weddings, corporate galas, and private parties.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="https://www.instagram.com/haroons_weddings/?hl=en" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                        </a>
-                        <a href="https://www.facebook.com/p/Haroons-weddings-events-100063703044091/" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                        </a>
-                        <a href="https://www.youtube.com/channel/UC5XX2UPV5JB6wIaPxrPlMbg" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="md:pl-10">
-                    <h4 class="text-gold font-bold text-lg mb-6">Quick Links</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" onclick="scrollToId('home')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Home</a></li>
-                        <li><a href="#" onclick="scrollToId('services')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Services</a></li>
-                        <li><a href="#" onclick="scrollToId('gallery')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Gallery</a></li>
-                        <li><a href="#" onclick="scrollToId('contact')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Contact</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-gold font-bold text-lg mb-6">Contact</h4>
-                    <ul class="space-y-4 text-gray-300 text-sm">
-                        <li class="flex items-start gap-3">
-                            <span class="text-gold mt-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
-                            <span>Near Jamia College, Chembakuth,<br>Edavanna, Kerala 676541</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
-                            <div>
-                                <div class="block">+91 9037874001</div>
-                                <div class="block">+91 9567525723</div>
-                            </div>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
-                            <span>haroonsevent@gmail.com</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="border-t border-white/10 pt-8 text-center text-gray-400 text-xs">
-                <p>&copy; 2025 Haroon's Weddings & Events Management Company. All rights reserved.</p>
-            </div>
-        </div>
+       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12"><div class="space-y-6"><div class="flex items-center gap-3"><img src="logo.png" alt="Haroon's Logo" onerror="this.src='https://placehold.co/100x100/0f392b/C5A059?text=H'; this.onerror=null;" class="w-12 h-12 rounded-full border border-gold object-cover"><div><h3 class="text-2xl font-serif font-bold text-white tracking-wide">HAROON'S</h3><p class="text-[10px] text-gold uppercase tracking-[0.3em]">Weddings & Events</p></div></div><p class="text-gray-300 text-sm leading-relaxed max-w-sm">Turning your special moments into lifelong memories. We provide full-service planning for weddings, corporate galas, and private parties.</p><div class="flex gap-4"><a href="https://www.instagram.com/haroons_weddings/?hl=en" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a><a href="https://www.facebook.com/p/Haroons-weddings-events-100063703044091/" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><a href="https://www.youtube.com/channel/UC5XX2UPV5JB6wIaPxrPlMbg" target="_blank" class="w-10 h-10 rounded-full bg-[#1a4f3d] flex items-center justify-center text-white hover:bg-gold hover:scale-110 transition duration-300"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg></a></div></div><div class="md:pl-10"><h4 class="text-gold font-bold text-lg mb-6">Quick Links</h4><ul class="space-y-3"><li><a href="#" onclick="scrollToId('home')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Home</a></li><li><a href="#" onclick="scrollToId('services')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Services</a></li><li><a href="#" onclick="scrollToId('gallery')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Gallery</a></li><li><a href="#" onclick="scrollToId('contact')" class="text-gray-300 hover:text-gold transition flex items-center gap-2 text-sm"><span class="text-xs text-gold font-bold">></span> Contact</a></li></ul></div><div><h4 class="text-gold font-bold text-lg mb-6">Contact</h4><ul class="space-y-4 text-gray-300 text-sm"><li class="flex items-start gap-3"><span class="text-gold mt-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span>Near Jamia College, Chembakuth,<br>Edavanna, Kerala 676541</span></li><li class="flex items-center gap-3"><span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><div><div class="block">+91 9037874001</div><div class="block">+91 9567525723</div></div></li><li class="flex items-center gap-3"><span class="text-gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span><span>haroonsevent@gmail.com</span></li></ul></div></div><div class="border-t border-white/10 pt-8 text-center text-gray-400 text-xs"><p>&copy; 2025 Haroon's Weddings & Events Management Company. All rights reserved.</p></div>
     </footer>
 
     <script>
-        // --- 1. CONFIGURATION ---
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwhtBle7BrR2Ip8Q_-rQI1Y3tTQ37PDxGdDyBXRnQimAOVFUANHwG7RStXeHJFvY5bHSQ/exec"; 
-
-        // --- 2. GLOBAL REVIEWS LOGIC ---
+        
         let currentRating = 0;
         let isExpanded = false;
-        let globalReviews = []; // Store fetched reviews
+        let globalReviews = [];
+        let myReviews = JSON.parse(localStorage.getItem('my_reviews') || '[]');
 
-        // FEATURED REVIEWS (Moved to BOTTOM of list logic)
         const hardcodedReviews = [
             { name: "Adnan & Fatima", text: "Haroon's made our dream wedding a reality. The stage decoration was breathtaking and exactly what we imagined!", rating: 5, eventType: "Wedding", time: "10/28/2023 02:30 PM" },
             { name: "TechSolutions Pvt Ltd", text: "Professional, punctual, and perfect execution. The annual meet was handled flawlessly. Highly recommended.", rating: 5, eventType: "Corporate Event", time: "11/15/2023 10:00 AM" }
         ];
 
-        // Fetch Reviews from Google Sheet
+        // --- UTILS ---
+        function generateUUID() { return Date.now().toString(36) + Math.random().toString(36).substr(2); }
+        
+        function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
+        function scrollToId(id) { const el = document.getElementById(id); if(el) { el.scrollIntoView({ behavior: 'smooth' }); document.getElementById('mobile-menu').classList.add('hidden'); } }
+        function sendWhatsApp(e) { e.preventDefault(); const fname = document.getElementById('fname').value; const lname = document.getElementById('lname').value; const email = document.getElementById('email').value; const phone = document.getElementById('phone').value; const event = document.getElementById('event').value; const msg = document.getElementById('message').value; const text = `*New Website Inquiry*%0A%0A*Name:* ${fname} ${lname}%0A*Email:* ${email}%0A*Phone:* ${phone}%0A*Event:* ${event}%0A*Message:* ${msg}`; window.open(`https://wa.me/919037874001?text=${text}`, '_blank'); }
+
         function fetchReviews() {
             const loader = document.getElementById('reviews-loader');
             loader.classList.remove('hidden');
-            
             fetch(GOOGLE_SCRIPT_URL)
                 .then(response => response.json())
                 .then(data => {
-                    // Filter Spam from the cloud data (Extra layer of security)
                     globalReviews = data.filter(review => isValidName(review.name) && isValidMessage(review.text));
-                    // Sort: Newest First (Assuming data comes in chronological order, reverse it)
                     globalReviews.reverse();
                     loadReviews();
                 })
-                .catch(error => {
-                    console.error('Error fetching reviews:', error);
-                    // Fallback to hardcoded only if fetch fails
-                    loadReviews(); 
-                })
-                .finally(() => {
-                    loader.classList.add('hidden');
-                });
+                .catch(error => { console.error('Error fetching:', error); loadReviews(); })
+                .finally(() => { loader.classList.add('hidden'); });
         }
 
-        // Render Reviews (Sorted: Newest Global -> Hardcoded)
         function loadReviews() {
             const grid = document.getElementById('testimonials-grid');
             grid.innerHTML = ''; 
-
-            // Combine: Global (Top) + Hardcoded (Bottom)
             const allReviews = [...globalReviews, ...hardcodedReviews];
-
             allReviews.forEach((review, index) => {
                 const card = createReviewCard(review, index);
                 grid.appendChild(card);
             });
-
             updateVisibility();
         }
 
@@ -472,20 +249,19 @@
             newCard.className = "review-card bg-[#0a2e22] p-8 rounded-xl border border-[#1a4f3d] hover:border-gold/50 transition reveal active relative";
             newCard.setAttribute('data-index', index);
             
-            // Ensure rating is an integer for loop
-            let ratingInt = parseInt(review.rating);
-            if(isNaN(ratingInt)) ratingInt = 5; // Fallback
+            // Check if THIS user owns this review
+            const isMine = myReviews.some(mine => mine.id === review.id);
+            const menuHtml = isMine ? renderMenu(review) : '';
 
             let starsHtml = ""; 
+            let ratingInt = parseInt(review.rating) || 5;
             for(let i=0; i<ratingInt; i++) starsHtml += "★";
             
-            // Format time if it's a raw date string
             let displayTime = review.time || review.date; 
-            if(displayTime && displayTime.includes("T")) {
-                 displayTime = new Date(displayTime).toLocaleString();
-            }
+            if(displayTime && displayTime.includes("T")) displayTime = new Date(displayTime).toLocaleString();
 
             newCard.innerHTML = `
+                ${menuHtml}
                 <div class="flex gap-1 mb-4 text-gold text-lg">${starsHtml}</div>
                 <p class="text-gray-300 italic mb-6">"${review.text}"</p>
                 <div class="flex items-center gap-3">
@@ -500,84 +276,172 @@
             return newCard;
         }
 
-        // --- 3. SUBMISSION LOGIC (POST TO GOOGLE) ---
+        // --- MENU LOGIC ---
+        function renderMenu(review) {
+            // Check time difference (1 hour = 3600000 ms)
+            const createdTime = myReviews.find(m => m.id === review.id).timestamp;
+            const now = Date.now();
+            const canDelete = (now - createdTime) < 3600000;
+
+            const deleteOption = canDelete ? `<button onclick="deleteReview('${review.id}')" class="menu-item text-red-400 hover:text-red-500">Delete</button>` : '';
+
+            return `
+                <div class="kebab-menu" onclick="toggleCardMenu(this)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="12" cy="18" r="2"/></svg>
+                </div>
+                <div class="menu-dropdown hidden">
+                    <button onclick="editReview('${review.id}', '${review.name}', '${review.text.replace(/'/g, "\\'")}', '${review.rating}', '${review.eventType}')" class="menu-item">Edit</button>
+                    ${deleteOption}
+                </div>
+            `;
+        }
+
+        function toggleCardMenu(btn) {
+            // Close all other menus first
+            document.querySelectorAll('.menu-dropdown').forEach(el => el.classList.add('hidden'));
+            // Toggle this one
+            const menu = btn.nextElementSibling;
+            menu.classList.toggle('hidden');
+        }
+
+        // Close menus when clicking elsewhere
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.kebab-menu') && !e.target.closest('.menu-dropdown')) {
+                document.querySelectorAll('.menu-dropdown').forEach(el => el.classList.add('hidden'));
+            }
+        });
+
+        // --- EDIT & DELETE ACTIONS ---
+        function editReview(id, name, text, rating, eventType) {
+            document.getElementById('form-title').innerText = "Edit your review";
+            document.getElementById('form-subtitle').innerText = "Make changes below.";
+            document.getElementById('form-action').value = "update";
+            document.getElementById('edit-id').value = id;
+            
+            document.getElementById('review-name').value = name;
+            document.getElementById('review-message').value = text;
+            document.getElementById('review-event-type').value = eventType;
+            if(eventType === "Other") toggleOtherInput(document.getElementById('review-event-type'));
+            
+            setRating(parseInt(rating));
+            
+            document.getElementById('submit-text').innerText = "Update Review";
+            document.getElementById('cancel-edit-btn').classList.remove('hidden');
+            document.getElementById('review-form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cancelEdit() {
+            document.getElementById('review-form').reset();
+            document.getElementById('form-title').innerText = "How was your experience?";
+            document.getElementById('form-subtitle').innerText = "Click a star to rate us and leave a review.";
+            document.getElementById('form-action').value = "create";
+            document.getElementById('edit-id').value = "";
+            document.getElementById('submit-text').innerText = "Submit Review Now";
+            document.getElementById('cancel-edit-btn').classList.add('hidden');
+            setRating(0);
+            document.getElementById('other-event-container').classList.add('hidden');
+            document.getElementById('review-form').classList.add('hidden');
+        }
+
+        function deleteReview(id) {
+            if(!confirm("Are you sure you want to delete this review?")) return;
+            
+            const params = new URLSearchParams();
+            params.append('action', 'delete');
+            params.append('id', id);
+
+            fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: params, mode: 'no-cors' })
+            .then(() => {
+                alert("Review deleted.");
+                // Remove from local list
+                globalReviews = globalReviews.filter(r => r.id !== id);
+                myReviews = myReviews.filter(r => r.id !== id);
+                localStorage.setItem('my_reviews', JSON.stringify(myReviews));
+                loadReviews();
+            });
+        }
+
+        // --- SUBMIT LOGIC ---
         const reviewForm = document.getElementById('review-form');
         reviewForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const submitBtn = reviewForm.querySelector('button[type="submit"]');
             submitBtn.disabled = true; 
-            const originalBtnText = submitBtn.innerHTML; 
-            submitBtn.innerHTML = 'Submitting...';
+            submitBtn.querySelector('span').innerText = 'Processing...';
 
-            // Gather Data
             const formData = new FormData(reviewForm);
+            const action = document.getElementById('form-action').value;
+            const editId = document.getElementById('edit-id').value;
+            
             const name = formData.get('name'); 
             const message = formData.get('message');
             let eventType = document.getElementById('review-event-type').value; 
             const otherInput = document.getElementById('other-event-input');
 
-            // --- VALIDATION ---
-            if (!isValidName(name)) { alert("Invalid Name."); document.getElementById('review-name').focus(); submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText; return; }
-            if (!isValidMessage(message)) { alert("Invalid Message."); document.getElementById('review-message').focus(); submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText; return; }
-            if (eventType === "Other") {
-                const typedEvent = otherInput.value.trim();
-                if (isSpamOrInvalidOtherEvent(typedEvent)) { alert("Invalid Event."); otherInput.focus(); submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText; return; }
-                eventType = typedEvent; 
-            }
+            if (!isValidName(name)) { alert("Invalid Name."); document.getElementById('review-name').focus(); resetBtn(); return; }
+            if (!isValidMessage(message)) { alert("Invalid Message."); document.getElementById('review-message').focus(); resetBtn(); return; }
+            if (eventType === "Other") eventType = otherInput.value.trim();
 
-            // --- CHECK DUPLICATE (In Global List) ---
-            if (globalReviews.some(r => r.name.toLowerCase() === name.toLowerCase() && r.text.toLowerCase() === message.toLowerCase())) {
-                alert("You have already submitted this review.");
-                submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText;
-                return;
-            }
-
-            // Prepare Data for Google Sheet
+            // Prepare Data
             const params = new URLSearchParams();
+            params.append('action', action); // 'create' or 'update'
             params.append('name', name);
             params.append('text', message);
             params.append('rating', currentRating);
             params.append('eventType', eventType);
             params.append('time', new Date().toLocaleString());
+            
+            // Handle IDs
+            let finalId = editId;
+            if (action === 'create') {
+                finalId = generateUUID();
+                params.append('id', finalId);
+            } else {
+                params.append('id', editId);
+            }
 
-            // --- SEND TO GOOGLE SHEET ---
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                body: params,
-                mode: 'no-cors' // Important for Google Script
-            }).then(() => {
-                alert("Thank you for your review!");
-                reviewForm.reset(); setRating(0);
-                document.getElementById('other-event-container').classList.add('hidden'); 
-                document.getElementById('rating-text').innerText = "";
-                document.getElementById('review-form').classList.add('hidden');
-                submitBtn.innerHTML = "Thank you for the feedback...";
+            fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: params, mode: 'no-cors' })
+            .then(() => {
+                alert(action === 'create' ? "Review Submitted!" : "Review Updated!");
                 
-                // Optimistically add to list without reloading
-                globalReviews.unshift({ name, text: message, rating: currentRating, eventType, time: new Date().toLocaleString() });
-                loadReviews();
-                
-                if (currentRating >= 4) triggerGoldShower();
+                // Update Local Memory
+                if (action === 'create') {
+                    myReviews.push({ id: finalId, timestamp: Date.now() });
+                    localStorage.setItem('my_reviews', JSON.stringify(myReviews));
+                    globalReviews.unshift({ id: finalId, name, text: message, rating: currentRating, eventType, time: new Date().toLocaleString() });
+                    if (currentRating >= 4) triggerGoldShower();
+                } else {
+                    // Update existing in global list locally to reflect change instantly
+                    const index = globalReviews.findIndex(r => r.id === finalId);
+                    if(index !== -1) {
+                        globalReviews[index] = { ...globalReviews[index], name, text: message, rating: currentRating, eventType };
+                    }
+                }
 
-            }).catch(error => {
+                cancelEdit(); // Reset form
+                loadReviews(); // Re-render
+            })
+            .catch(error => {
                 console.error('Error:', error);
-                alert("Network error. Please try again.");
-                submitBtn.disabled = false; submitBtn.innerHTML = originalBtnText;
+                alert("Network error.");
+                resetBtn();
             });
+
+            function resetBtn() {
+                submitBtn.disabled = false;
+                submitBtn.querySelector('span').innerText = action === 'create' ? 'Submit Review Now' : 'Update Review';
+            }
         });
 
-        // --- UTILITIES (Validation, UI) ---
+        // --- VALIDATION & UTILS ---
         function isValidName(text) { return /^[a-zA-Z\s\.]+$/.test(text) && text.trim().length >= 3 && !/(.)\1{2,}/.test(text); }
         function isValidMessage(text) { return text.length >= 4 && text.trim().split(/\s+/).length >= 1 && /[aeiouyAEIOUY]/.test(text) && !/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{6,}/.test(text) && !/(.)\1{3,}/.test(text); }
-        function isSpamOrInvalidOtherEvent(text) { return text.length < 3 || /(.)\1{3,}/.test(text) || /^\d+$/.test(text) || !/^[a-zA-Z0-9\s\-\']+$/.test(text); }
-        
         function toggleOtherInput(selectElement) {
             const container = document.getElementById('other-event-container');
             const input = document.getElementById('other-event-input');
             if (selectElement.value === "Other") { container.classList.remove('hidden'); input.required = true; input.focus(); }
             else { container.classList.add('hidden'); input.required = false; input.value = ""; }
         }
-
         function updateVisibility() {
             const cards = document.querySelectorAll('.review-card');
             const seeMoreContainer = document.getElementById('see-more-container');
@@ -587,10 +451,7 @@
             let hiddenCount = 0;
             cards.forEach((card, index) => {
                 if (isExpanded) { card.classList.remove('hidden'); }
-                else {
-                    if (index < limit) { card.classList.remove('hidden'); }
-                    else { card.classList.add('hidden'); hiddenCount++; }
-                }
+                else { if (index < limit) { card.classList.remove('hidden'); } else { card.classList.add('hidden'); hiddenCount++; } }
             });
             if (hiddenCount > 0 && !isExpanded) { seeMoreContainer.classList.remove('hidden'); floatingBtn.classList.add('hidden'); }
             else if (isExpanded) { seeMoreContainer.classList.add('hidden'); floatingBtn.classList.remove('hidden'); }
@@ -599,54 +460,15 @@
         function toggleSeeMore() { isExpanded = true; updateVisibility(); }
         function toggleSeeLess() { isExpanded = false; updateVisibility(); document.getElementById('testimonials-grid').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
         window.addEventListener('resize', updateVisibility);
-
         function triggerGoldShower() {
-            const colors = ['#C5A059', '#FFD700', '#DAA520', '#F0E68C'];
-            const endTime = Date.now() + 4000; 
-            const interval = setInterval(() => {
-                if (Date.now() > endTime) { clearInterval(interval); return; }
-                for (let i = 0; i < 10; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.classList.add('confetti');
-                    confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's'; 
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.width = (Math.random() * 8 + 4) + 'px'; confetti.style.height = confetti.style.width;
-                    document.body.appendChild(confetti);
-                    setTimeout(() => { confetti.remove(); }, 3000);
-                }
-            }, 100);
+            const colors = ['#C5A059', '#FFD700', '#DAA520', '#F0E68C']; const endTime = Date.now() + 4000; 
+            const interval = setInterval(() => { if (Date.now() > endTime) { clearInterval(interval); return; } for (let i = 0; i < 10; i++) { const confetti = document.createElement('div'); confetti.classList.add('confetti'); confetti.style.left = Math.random() * 100 + 'vw'; confetti.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's'; confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; confetti.style.width = (Math.random() * 8 + 4) + 'px'; confetti.style.height = confetti.style.width; document.body.appendChild(confetti); setTimeout(() => { confetti.remove(); }, 3000); } }, 100);
         }
-
         function highlightStars(n) { for (let i = 1; i <= 5; i++) { const starSvg = document.getElementById(`star-${i}`); if (i <= n) { starSvg.setAttribute('fill', '#C5A059'); starSvg.setAttribute('stroke', '#C5A059'); } else { starSvg.setAttribute('fill', 'none'); starSvg.setAttribute('stroke', '#6B7280'); } } }
-        function setRating(n) {
-            currentRating = n;
-            document.getElementById('review-form').classList.remove('hidden');
-            document.getElementById('review-form').classList.add('animate-fade-in-up');
-            for (let i = 1; i <= 5; i++) {
-                const starBtn = document.querySelector(`button[onclick="setRating(${i})"]`);
-                starBtn.classList.remove('star-pop'); void starBtn.offsetWidth; starBtn.classList.add('star-pop');
-            }
-            highlightStars(n);
-            document.getElementById('rating-text').innerText = `You selected ${n} star${n > 1 ? 's' : ''}`;
-            // ADDED MISSING TRIGGER HERE
-            if (n === 5) triggerGoldShower(); 
-        }
-        function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
-        function scrollToId(id) { const el = document.getElementById(id); if(el) { el.scrollIntoView({ behavior: 'smooth' }); document.getElementById('mobile-menu').classList.add('hidden'); } }
-        function sendWhatsApp(e) { e.preventDefault(); const fname = document.getElementById('fname').value; const lname = document.getElementById('lname').value; const email = document.getElementById('email').value; const phone = document.getElementById('phone').value; const event = document.getElementById('event').value; const msg = document.getElementById('message').value; const text = `*New Website Inquiry*%0A%0A*Name:* ${fname} ${lname}%0A*Email:* ${email}%0A*Phone:* ${phone}%0A*Event:* ${event}%0A*Message:* ${msg}`; window.open(`https://wa.me/919037874001?text=${text}`, '_blank'); }
-
+        function setRating(n) { currentRating = n; document.getElementById('review-form').classList.remove('hidden'); document.getElementById('review-form').classList.add('animate-fade-in-up'); for (let i = 1; i <= 5; i++) { const starBtn = document.querySelector(`button[onclick="setRating(${i})"]`); starBtn.classList.remove('star-pop'); void starBtn.offsetWidth; starBtn.classList.add('star-pop'); } highlightStars(n); document.getElementById('rating-text').innerText = `You selected ${n} star${n > 1 ? 's' : ''}`; if (n === 5) triggerGoldShower(); }
         const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) { entry.target.classList.add('active'); } else { entry.target.classList.remove('active'); } }); }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // INITIALIZE
-        // Check if user set the URL, otherwise just load hardcoded
-        if(GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) {
-            console.log("Global DB not set up. Loading local only.");
-            loadReviews();
-        } else {
-            fetchReviews();
-        }
+        fetchReviews();
     </script>
 </body>
 </html>
